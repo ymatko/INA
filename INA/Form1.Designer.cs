@@ -34,7 +34,7 @@
             LblN = new Label();
             LblPk = new Label();
             LblPm = new Label();
-            button1 = new Button();
+            BtnCalculate = new Button();
             comboBox_D = new ComboBox();
             panel1 = new Panel();
             textBox_N = new TextBox();
@@ -109,14 +109,16 @@
             LblPm.TabIndex = 0;
             LblPm.Text = "Pm:";
             // 
-            // button1
+            // BtnCalculate
             // 
-            button1.Location = new Point(669, 15);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 1;
-            button1.Text = "Calculate";
-            button1.UseVisualStyleBackColor = true;
+            BtnCalculate.Dock = DockStyle.Right;
+            BtnCalculate.Location = new Point(1432, 0);
+            BtnCalculate.Name = "BtnCalculate";
+            BtnCalculate.Size = new Size(75, 47);
+            BtnCalculate.TabIndex = 1;
+            BtnCalculate.Text = "Calculate";
+            BtnCalculate.UseVisualStyleBackColor = true;
+            BtnCalculate.Click += BtnCalculate_Click;
             // 
             // comboBox_D
             // 
@@ -126,6 +128,7 @@
             comboBox_D.Name = "comboBox_D";
             comboBox_D.Size = new Size(67, 23);
             comboBox_D.TabIndex = 2;
+            comboBox_D.Text = "0.1";
             // 
             // panel1
             // 
@@ -137,7 +140,7 @@
             panel1.Controls.Add(LblB);
             panel1.Controls.Add(comboBox_D);
             panel1.Controls.Add(LblA);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(BtnCalculate);
             panel1.Controls.Add(LblD);
             panel1.Controls.Add(LblN);
             panel1.Controls.Add(LblPk);
@@ -145,7 +148,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(776, 47);
+            panel1.Size = new Size(1507, 47);
             panel1.TabIndex = 3;
             // 
             // textBox_N
@@ -154,6 +157,7 @@
             textBox_N.Name = "textBox_N";
             textBox_N.Size = new Size(51, 23);
             textBox_N.TabIndex = 2;
+            textBox_N.Text = "10";
             // 
             // textBox_Pm
             // 
@@ -161,6 +165,7 @@
             textBox_Pm.Name = "textBox_Pm";
             textBox_Pm.Size = new Size(51, 23);
             textBox_Pm.TabIndex = 2;
+            textBox_Pm.Text = "0.002";
             // 
             // textBox_Pk
             // 
@@ -168,6 +173,7 @@
             textBox_Pk.Name = "textBox_Pk";
             textBox_Pk.Size = new Size(51, 23);
             textBox_Pk.TabIndex = 2;
+            textBox_Pk.Text = "0.7";
             // 
             // textBox_B
             // 
@@ -175,6 +181,7 @@
             textBox_B.Name = "textBox_B";
             textBox_B.Size = new Size(51, 23);
             textBox_B.TabIndex = 2;
+            textBox_B.Text = "12";
             // 
             // textBox_A
             // 
@@ -182,6 +189,7 @@
             textBox_A.Name = "textBox_A";
             textBox_A.Size = new Size(51, 23);
             textBox_A.TabIndex = 2;
+            textBox_A.Text = "-4";
             // 
             // panel2
             // 
@@ -189,7 +197,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 47);
             panel2.Name = "panel2";
-            panel2.Size = new Size(776, 390);
+            panel2.Size = new Size(1507, 390);
             panel2.TabIndex = 4;
             // 
             // dataGridView1
@@ -201,15 +209,16 @@
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(776, 390);
+            dataGridView1.Size = new Size(1507, 390);
             dataGridView1.TabIndex = 0;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(776, 437);
+            ClientSize = new Size(1507, 437);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "MainForm";
@@ -228,7 +237,7 @@
         private Label LblN;
         private Label LblPk;
         private Label LblPm;
-        private Button button1;
+        private Button BtnCalculate;
         private ComboBox comboBox_D;
         private Panel panel1;
         private Panel panel2;
