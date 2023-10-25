@@ -13,6 +13,7 @@ namespace INA
         public double truexReal { get; set; }
         public double xReal { get; set; }
         public double FxReal { get; set; }
+        public double GxReal { get; set; }
 
         public DataGrid(double a, double b, long lp, int l, double d, double pk, double pm)
         {
