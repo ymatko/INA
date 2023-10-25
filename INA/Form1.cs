@@ -44,18 +44,24 @@ namespace INA
                 generation[i] = dataGrid;
             }
 
-            // g(x)
-            foreach(DataGrid data in generation)
+
+            foreach (DataGrid data in generation)
             {
-                data.GxReal = data.FxReal - generation.Min(d => d.FxReal) + d;
+                // g(x)
+                double minFxReal = generation.Min(d => d.FxReal);
+                data.GxReal = data.FxReal - minFxReal + d;
+
+                // Pi
+                double sumGxReal = generation.Sum(d => d.GxReal);
+                data.PixReal = data.GxReal / sumGxReal;
             }
 
 
 
 
-            for(int i = 0; i < generation.Length; i++)
+            for (int i = 0; i < generation.Length; i++)
             {
-                dataGridView1.Rows.Add(i + 1, generation[i].xReal, generation[i].FxReal, generation[i].GxReal);
+                dataGridView1.Rows.Add(i + 1, generation[i].xReal, generation[i].FxReal, generation[i].GxReal, generation[i].PixReal, generation.Sum(d => d.PixReal));
             }
         }
     }
