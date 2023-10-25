@@ -1,3 +1,4 @@
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace INA
@@ -37,10 +38,18 @@ namespace INA
             int l = (int)Math.Floor(Math.Log((b - a) / d, 2) + 1.0);
 
             DataGrid[] generation = new DataGrid[n];
-            for (int i = 1; i <= n; i++)
+            for (int i = 0; i < n; i++)
             {
                 var dataGrid = new DataGrid(a, b, i + 1, l, d, pk, pm);
-                dataGridView1.Rows.Add(i, dataGrid.xReal, dataGrid.FxReal);
+                generation[i] = dataGrid;
+            }
+
+
+
+
+            for(int i = 0; i < generation.Length; i++)
+            {
+                dataGridView1.Rows.Add(i + 1, generation[i].xReal, generation[i].FxReal);
             }
         }
     }

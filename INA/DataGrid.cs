@@ -35,5 +35,4 @@ namespace INA
             FxReal = (xReal % 1.0) * (Math.Cos(20.0 + Math.PI + xReal)) - Math.Sin(xReal);
         }
     }
-    
 }
