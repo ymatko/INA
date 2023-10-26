@@ -15,6 +15,7 @@ namespace INA
         public double FxReal { get; set; }
         public double GxReal { get; set; }
         public double PixReal { get; set; }
+        public double Distributor { get; set; }
 
         public DataGrid(double a, double b, long lp, int l, double d, double pk, double pm)
         {

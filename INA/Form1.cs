@@ -59,11 +59,19 @@ namespace INA
                 data.PixReal = data.GxReal / sumGxReal;
             }
 
+            for(int i = 0; i < generation.Length; i++)
+            {
+                if (i == 0)
+                    generation[0].Distributor = generation[0].PixReal;
+                else
+                    generation[i].Distributor = generation[i - 1].Distributor + generation[i].PixReal;
+            }
+
 
 
             for (int i = 0; i < generation.Length; i++)
             {
-                dataGridView1.Rows.Add(i + 1, generation[i].xReal, generation[i].FxReal, generation[i].GxReal, generation[i].PixReal);
+                dataGridView1.Rows.Add(i + 1, generation[i].xReal, generation[i].FxReal, generation[i].GxReal, generation[i].PixReal, generation[i].Distributor);
             }
         }
     }
