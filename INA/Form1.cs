@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -24,7 +25,7 @@ namespace INA
             dataGridView1.Columns.Add("Bin", "Bin");
             dataGridView1.Columns.Add("Fx", "F(x)");
         }
-
+        public Random rand = new Random();
         private void BtnCalculate_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
@@ -61,6 +62,7 @@ namespace INA
 
             for(int i = 0; i < generation.Length; i++)
             {
+                // Distributor
                 if (i == 0)
                     generation[0].Distributor = generation[0].PixReal;
                 else
@@ -68,10 +70,48 @@ namespace INA
             }
 
 
+            // selection
+            double x;
+            for (int i = 0; i < generation.Length; i++)
+            {
+                x = rand.NextDouble();
+                if (generation[0].Distributor > x)
+                {
+                    generation[i].r = x;
+                    generation[i].IsSelected = generation[0].xReal;
+                }
+                else
+                {
+                    for (int j = 0; j < generation.Length; j++)
+                    {
+
+                        if (generation[j].Distributor < x && x <= generation[j + 1].Distributor)
+                        {
+                            generation[i].r = x;
+                            generation[i].IsSelected = generation[j + 1].xReal;
+
+                        }
+
+                    }
+                }
+                
+            }
+
+
+
 
             for (int i = 0; i < generation.Length; i++)
             {
-                dataGridView1.Rows.Add(i + 1, generation[i].xReal, generation[i].FxReal, generation[i].GxReal, generation[i].PixReal, generation[i].Distributor);
+                dataGridView1.Rows.Add(
+                    i + 1, 
+                    generation[i].xReal, 
+                    generation[i].FxReal, 
+                    generation[i].GxReal, 
+                    generation[i].PixReal,
+                    generation[i].Distributor,
+                    generation[i].r,
+                    generation[i].IsSelected
+                    );
             }
         }
     }

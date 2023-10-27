@@ -13,9 +13,14 @@ namespace INA
         public double truexReal { get; set; }
         public double xReal { get; set; }
         public double FxReal { get; set; }
+        public string xBin_xInt { get; set; }
+        public long xInt_xReal { get; set; }
         public double GxReal { get; set; }
         public double PixReal { get; set; }
         public double Distributor { get; set; }
+        public bool isParent { get; set; }
+        public double IsSelected { get; set; }
+        public double r { get; set; }
 
         public DataGrid(double a, double b, long lp, int l, double d, double pk, double pm)
         {
@@ -36,6 +41,8 @@ namespace INA
             truexReal = rand.NextDouble() * (b - a) + a;
             xReal = Math.Round(truexReal, accuracy);
             FxReal = (xReal % 1.0) * (Math.Cos(20.0 + Math.PI + xReal)) - Math.Sin(xReal);
+            xInt_xReal = (long)Math.Round((1.0 / (b - a)) * (xReal - a) * ((Math.Pow(2.0, l)) - 1.0));
+            xBin_xInt = Convert.ToString(xInt_xReal, 2).PadLeft(l, '0');
         }
     }
 }
