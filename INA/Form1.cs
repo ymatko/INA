@@ -103,14 +103,15 @@ namespace INA
             for (int i = 0; i < generation.Length; i++)
             {
                 dataGridView1.Rows.Add(
-                    i + 1, 
-                    generation[i].xReal, 
-                    generation[i].FxReal, 
-                    generation[i].GxReal, 
+                    i + 1,
+                    generation[i].xReal,
+                    generation[i].FxReal,
+                    generation[i].GxReal,
                     generation[i].PixReal,
                     generation[i].Distributor,
                     generation[i].r,
-                    generation[i].IsSelected
+                    generation[i].IsSelected,
+                    generation[i].GetBin(generation[i].IsSelected)
                     );
             }
         }

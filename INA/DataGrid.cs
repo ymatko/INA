@@ -8,13 +8,18 @@ namespace INA
 {
     internal class DataGrid
     {
+        private double _a { get; set; }
+        private double _b { get; set; }
+        private double _lp { get; set; }
+        private int _l { get; set; }
+        private double _d { get; set; }
+        private double _pk { get; set; }
+        private double _pm { get; set; }
         public static Random rand = new Random();
         public double LP { get; set; }
         public double truexReal { get; set; }
         public double xReal { get; set; }
         public double FxReal { get; set; }
-        public string xBin_xInt { get; set; }
-        public long xInt_xReal { get; set; }
         public double GxReal { get; set; }
         public double PixReal { get; set; }
         public double Distributor { get; set; }
@@ -24,6 +29,13 @@ namespace INA
 
         public DataGrid(double a, double b, long lp, int l, double d, double pk, double pm)
         {
+            _a = a;
+            _b = b;
+            _lp = lp;
+            _l = l;
+            _d = d;
+            _pk = pk;
+            _pm = pm;
             LP = lp;
             int accuracy = 0;
             switch (d)
@@ -41,8 +53,11 @@ namespace INA
             truexReal = rand.NextDouble() * (b - a) + a;
             xReal = Math.Round(truexReal, accuracy);
             FxReal = (xReal % 1.0) * (Math.Cos(20.0 + Math.PI + xReal)) - Math.Sin(xReal);
-            xInt_xReal = (long)Math.Round((1.0 / (b - a)) * (xReal - a) * ((Math.Pow(2.0, l)) - 1.0));
-            xBin_xInt = Convert.ToString(xInt_xReal, 2).PadLeft(l, '0');
+        }
+        public string GetBin(double value)
+        {
+            long xInt_xReal = (long)Math.Round((1.0 / (_b - _a)) * (value - _a) * ((Math.Pow(2.0, _l)) - 1.0));
+             return Convert.ToString(xInt_xReal, 2).PadLeft(_l, '0');
         }
     }
 }
