@@ -91,10 +91,13 @@ namespace INA
                             generation[i].IsSelected = generation[j + 1].xReal;
 
                         }
-
                     }
                 }
-                
+            }
+            for(int i = 0; i < generation.Length; i++)
+            {
+                if (rand.NextDouble() <= pk)
+                    generation[i].isParent = true;
             }
 
 
@@ -111,7 +114,8 @@ namespace INA
                     generation[i].Distributor,
                     generation[i].r,
                     generation[i].IsSelected,
-                    generation[i].GetBin(generation[i].IsSelected)
+                    generation[i].GetBin(generation[i].IsSelected),
+                    generation[i].isParent
                     );
             }
         }
