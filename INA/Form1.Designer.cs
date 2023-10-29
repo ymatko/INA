@@ -112,7 +112,7 @@
             // BtnCalculate
             // 
             BtnCalculate.Dock = DockStyle.Right;
-            BtnCalculate.Location = new Point(1432, 0);
+            BtnCalculate.Location = new Point(1530, 0);
             BtnCalculate.Name = "BtnCalculate";
             BtnCalculate.Size = new Size(75, 47);
             BtnCalculate.TabIndex = 1;
@@ -148,7 +148,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1507, 47);
+            panel1.Size = new Size(1605, 47);
             panel1.TabIndex = 3;
             // 
             // textBox_N
@@ -197,7 +197,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 47);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1507, 390);
+            panel2.Size = new Size(1605, 390);
             panel2.TabIndex = 4;
             // 
             // dataGridView1
@@ -211,14 +211,14 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(1507, 390);
+            dataGridView1.Size = new Size(1605, 390);
             dataGridView1.TabIndex = 0;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1507, 437);
+            ClientSize = new Size(1605, 437);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "MainForm";

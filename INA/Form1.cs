@@ -22,6 +22,7 @@ namespace INA
             dataGridView1.Columns.Add("P(c)", "P(c)");
             dataGridView1.Columns.Add("Po skrzyzowaniu", "Po skrzyzowaniu");
             dataGridView1.Columns.Add("Pozycja mut.", "Pozycja mut.");
+            dataGridView1.Columns.Add("Po mutacji", "Po mutacji");
             dataGridView1.Columns.Add("Bin", "Bin");
             dataGridView1.Columns.Add("Fx", "F(x)");
         }
@@ -54,13 +55,13 @@ namespace INA
             }
 
             double sumGxReal = generation.Sum(data => data.GxReal);
-            foreach(DataGrid data in generation)
+            foreach (DataGrid data in generation)
             {
                 // Pi
                 data.PixReal = data.GxReal / sumGxReal;
             }
 
-            for(int i = 0; i < generation.Length; i++)
+            for (int i = 0; i < generation.Length; i++)
             {
                 // Distributor
                 if (i == 0)
@@ -94,10 +95,18 @@ namespace INA
                     }
                 }
             }
-            for(int i = 0; i < generation.Length; i++)
+            for (int i = 0; i < generation.Length; i++)
             {
                 if (rand.NextDouble() <= pk)
                     generation[i].isParent = true;
+            }
+
+            foreach (DataGrid data in generation)
+            {
+                if (data.isParent)
+                {
+                    data.CuttingPoint = rand.Next(1, l);
+                }
             }
 
 
@@ -115,7 +124,8 @@ namespace INA
                     generation[i].r,
                     generation[i].IsSelected,
                     generation[i].GetBin(generation[i].IsSelected),
-                    generation[i].isParent
+                    generation[i].isParent ? generation[i].isParent : "",
+                    generation[i].CuttingPoint != 0 ? generation[i].CuttingPoint : ""
                     );
             }
         }

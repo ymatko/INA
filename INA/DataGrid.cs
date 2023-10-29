@@ -26,6 +26,7 @@ namespace INA
         public bool isParent { get; set; }
         public double IsSelected { get; set; }
         public double r { get; set; }
+        public int CuttingPoint { get; set; }
 
         public DataGrid(double a, double b, long lp, int l, double d, double pk, double pm)
         {
