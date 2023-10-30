@@ -126,24 +126,36 @@ namespace INA
                 parentCandidates.RemoveAt(index);
 
                 int otherIndex = rand.Next(parentCandidates.Count);
-                Tuple<DataGrid, int> partnerParent = parentCandidates[otherIndex];
 
-                var parent1 = singleParent.Item1;
-                var parent2 = partnerParent.Item1;
+                Tuple<DataGrid, int> partnerParent = null;
 
-                int position1 = singleParent.Item2;
-                int position2 = partnerParent.Item2;
+                try
+                {
+                    partnerParent = parentCandidates[otherIndex];
+                }
+                catch
+                {
+                }
 
-                var (child1, child2, crossoverPoint) = Crossover(
-                    parent1.GetBin(parent1.IsSelected),
-                    parent2.GetBin(parent2.IsSelected),
-                    l
-                );
+                if (partnerParent != null)
+                {
+                    var parent1 = singleParent.Item1;
+                    var parent2 = partnerParent.Item1;
 
-                generation[position1].AfterCrossover = child1;
-                generation[position1].CuttingPoint = crossoverPoint;
-                generation[position2].AfterCrossover = child2;
-                generation[position2].CuttingPoint = crossoverPoint;
+                    int position1 = singleParent.Item2;
+                    int position2 = partnerParent.Item2;
+
+                    var (child1, child2, crossoverPoint) = Crossover(
+                        parent1.GetBin(parent1.IsSelected),
+                        parent2.GetBin(parent2.IsSelected),
+                        l
+                    );
+
+                    generation[position1].AfterCrossover = child1;
+                    generation[position1].CuttingPoint = crossoverPoint;
+                    generation[position2].AfterCrossover = child2;
+                    generation[position2].CuttingPoint = crossoverPoint;
+                }
             }
 
             // Now parentCandidates only contains parents with an even number
@@ -165,6 +177,13 @@ namespace INA
                 generation[position1].CuttingPoint = crossoverPoint;
                 generation[position2].AfterCrossover = child2;
                 generation[position2].CuttingPoint = crossoverPoint;
+            }
+
+            // Not parents
+            foreach(DataGrid data in generation)
+            {
+                if (!data.isParent)
+                    data.AfterCrossover = data.GetBin(data.IsSelected);
             }
 
 
