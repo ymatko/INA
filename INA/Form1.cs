@@ -24,7 +24,7 @@ namespace INA
             dataGridView1.Columns.Add("Po skrzyzowaniu", "Po skrzyzowaniu");
             dataGridView1.Columns.Add("Pozycja mut.", "Pozycja mut.");
             dataGridView1.Columns.Add("Po mutacji", "Po mutacji");
-            dataGridView1.Columns.Add("Bin", "Bin");
+            dataGridView1.Columns.Add("Real", "Real");
             dataGridView1.Columns.Add("Fx", "F(x)");
         }
         public Random rand = new Random();
@@ -214,7 +214,9 @@ namespace INA
                     generation[i].CuttingPoint != 0 ? generation[i].CuttingPoint : "",
                     generation[i].AfterCrossover,
                     generation[i].Mutations,
-                    generation[i].AfterMutation
+                    generation[i].AfterMutation,
+                    generation[i].GetReal(generation[i].AfterMutation),
+                    generation[i].Fx(generation[i].GetReal(generation[i].AfterMutation))
                     );
             }
         }

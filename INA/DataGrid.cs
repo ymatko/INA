@@ -63,5 +63,15 @@ namespace INA
             long xInt_xReal = (long)Math.Round((1.0 / (_b - _a)) * (value - _a) * ((Math.Pow(2.0, _l)) - 1.0));
              return Convert.ToString(xInt_xReal, 2).PadLeft(_l, '0');
         }
+        public double GetReal(string value)
+        {
+            double xInt_xBin = Convert.ToInt64(value, 2);
+            return ((_b - _a) * xInt_xBin) / (Math.Pow(2.0, _l) - 1.0) + _a;
+        }
+
+        public double Fx(double value)
+        {
+            return (value % 1.0) * (Math.Cos(20.0 + Math.PI + value)) - Math.Sin(value);
+        }
     }
 }
