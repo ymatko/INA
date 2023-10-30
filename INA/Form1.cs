@@ -95,17 +95,33 @@ namespace INA
                     }
                 }
             }
+
+            // for last distributor
+            if (generation[n-1].Distributor != 1)
+                generation[n-1].Distributor = 1;
+
+            // is parent random
             for (int i = 0; i < generation.Length; i++)
             {
                 if (rand.NextDouble() <= pk)
                     generation[i].isParent = true;
             }
 
+            // cutting point
             foreach (DataGrid data in generation)
             {
                 if (data.isParent)
                 {
                     data.CuttingPoint = rand.Next(1, l);
+                }
+            }
+
+            // cut
+            for(int i = 0; i < generation.Length; i++)
+            {
+                if (generation[i].isParent)
+                {
+
                 }
             }
 
@@ -128,6 +144,14 @@ namespace INA
                     generation[i].CuttingPoint != 0 ? generation[i].CuttingPoint : ""
                     );
             }
+        }
+
+        public static (string child1, string child2) Crossover(string parent1, string parent2, int crossoverPoint)
+        {
+            string child1 = parent1.Substring(0, crossoverPoint) + parent2.Substring(crossoverPoint);
+            string child2 = parent2.Substring(0, crossoverPoint) + parent1.Substring(crossoverPoint);
+
+            return (child1, child2);
         }
     }
 }
