@@ -28,6 +28,8 @@ namespace INA
         public double r { get; set; }
         public int CuttingPoint { get; set; }
         public string AfterCrossover { get; set; }
+        public string Mutations { get; set; }
+        public string AfterMutation { get; set; }
 
         public DataGrid(double a, double b, long lp, int l, double d, double pk, double pm)
         {

@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -186,6 +187,14 @@ namespace INA
                     data.AfterCrossover = data.GetBin(data.IsSelected);
             }
 
+            // Mutations
+            foreach (var data in generation)
+            {
+                var (afterMutation, mutations) = PerformMutation(data.AfterCrossover, pm);
+                data.AfterMutation = afterMutation;
+                data.Mutations = mutations;
+            }
+
 
 
 
@@ -203,7 +212,9 @@ namespace INA
                     generation[i].GetBin(generation[i].IsSelected),
                     generation[i].isParent ? generation[i].isParent : "",
                     generation[i].CuttingPoint != 0 ? generation[i].CuttingPoint : "",
-                    generation[i].AfterCrossover
+                    generation[i].AfterCrossover,
+                    generation[i].Mutations,
+                    generation[i].AfterMutation
                     );
             }
         }
@@ -216,6 +227,27 @@ namespace INA
             string child2 = parent2.Substring(0, crossoverPoint) + parent1.Substring(crossoverPoint);
 
             return (child1, child2, crossoverPoint);
+        }
+
+        private (string result, string mutations) PerformMutation(string input, double mutationProbability)
+        {
+            var rand = new Random();
+            var s = input.ToCharArray();
+            StringBuilder mutations = new StringBuilder();
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                double percent = mutationProbability * 100;
+                int random = rand.Next(0, 100);
+
+                if (random < percent)
+                {
+                    s[i] = (s[i] == '1') ? '0' : '1';
+                    mutations.Append((i + 1).ToString() + " ");
+                }
+            }
+
+            return (new string(s), mutations.ToString());
         }
     }
 }
