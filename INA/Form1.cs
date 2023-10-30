@@ -108,13 +108,13 @@ namespace INA
             }
 
             // cutting point
-            foreach (DataGrid data in generation)
-            {
-                if (data.isParent)
-                {
-                    data.CuttingPoint = rand.Next(1, l);
-                }
-            }
+            //foreach (DataGrid data in generation)
+            //{
+            //    if (data.isParent)
+            //    {
+            //        data.CuttingPoint = rand.Next(1, l);
+            //    }
+            //}
             //generation = generation.OrderByDescending(data => data.isParent).ToArray();
 
 
@@ -125,14 +125,16 @@ namespace INA
                 {
                     if (i < generation.Length - 1 && generation[i + 1].isParent)
                     {
-                        var (child1, child2) = Crossover(
+                        var (child1, child2, crossoverPoint) = Crossover(
                             generation[i].GetBin(generation[i].IsSelected),
                             generation[i + 1].GetBin(generation[i + 1].IsSelected),
-                            generation[i].CuttingPoint
+                            l
                         );
 
                         generation[i].AfterCrossover = child1;
+                        generation[i].CuttingPoint = crossoverPoint;
                         generation[i + 1].AfterCrossover = child2;
+                        generation[i + 1].CuttingPoint = crossoverPoint;
                         i++;
                     }
                 }
@@ -160,12 +162,14 @@ namespace INA
             }
         }
 
-        public static (string child1, string child2) Crossover(string parent1, string parent2, int crossoverPoint)
+        public static (string child1, string child2, int cuttingPoint) Crossover(string parent1, string parent2, int l)
         {
+            var rand = new Random();
+            int crossoverPoint = rand.Next(1, l);
             string child1 = parent1.Substring(0, crossoverPoint) + parent2.Substring(crossoverPoint);
             string child2 = parent2.Substring(0, crossoverPoint) + parent1.Substring(crossoverPoint);
 
-            return (child1, child2);
+            return (child1, child2, crossoverPoint);
         }
     }
 }
