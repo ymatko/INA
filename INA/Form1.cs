@@ -107,37 +107,64 @@ namespace INA
                     generation[i].isParent = true;
             }
 
-            // cutting point
-            //foreach (DataGrid data in generation)
-            //{
-            //    if (data.isParent)
-            //    {
-            //        data.CuttingPoint = rand.Next(1, l);
-            //    }
-            //}
-            //generation = generation.OrderByDescending(data => data.isParent).ToArray();
-
-
             // Crossover
+            List<Tuple<DataGrid, int>> parentCandidates = new List<Tuple<DataGrid, int>>();
+
             for (int i = 0; i < generation.Length; i++)
             {
                 if (generation[i].isParent)
                 {
-                    if (i < generation.Length - 1 && generation[i + 1].isParent)
-                    {
-                        var (child1, child2, crossoverPoint) = Crossover(
-                            generation[i].GetBin(generation[i].IsSelected),
-                            generation[i + 1].GetBin(generation[i + 1].IsSelected),
-                            l
-                        );
-
-                        generation[i].AfterCrossover = child1;
-                        generation[i].CuttingPoint = crossoverPoint;
-                        generation[i + 1].AfterCrossover = child2;
-                        generation[i + 1].CuttingPoint = crossoverPoint;
-                        i++;
-                    }
+                    parentCandidates.Add(new Tuple<DataGrid, int>(generation[i], i));
                 }
+            }
+
+            // Checking for an odd number of parents
+            if (parentCandidates.Count % 2 != 0)
+            {
+                int index = rand.Next(parentCandidates.Count);
+                Tuple<DataGrid, int> singleParent = parentCandidates[index];
+                parentCandidates.RemoveAt(index);
+
+                int otherIndex = rand.Next(parentCandidates.Count);
+                Tuple<DataGrid, int> partnerParent = parentCandidates[otherIndex];
+
+                var parent1 = singleParent.Item1;
+                var parent2 = partnerParent.Item1;
+
+                int position1 = singleParent.Item2;
+                int position2 = partnerParent.Item2;
+
+                var (child1, child2, crossoverPoint) = Crossover(
+                    parent1.GetBin(parent1.IsSelected),
+                    parent2.GetBin(parent2.IsSelected),
+                    l
+                );
+
+                generation[position1].AfterCrossover = child1;
+                generation[position1].CuttingPoint = crossoverPoint;
+                generation[position2].AfterCrossover = child2;
+                generation[position2].CuttingPoint = crossoverPoint;
+            }
+
+            // Now parentCandidates only contains parents with an even number
+            for (int i = 0; i < parentCandidates.Count - 1; i += 2)
+            {
+                var parent1 = parentCandidates[i].Item1;
+                var parent2 = parentCandidates[i + 1].Item1;
+
+                int position1 = parentCandidates[i].Item2;
+                int position2 = parentCandidates[i + 1].Item2;
+
+                var (child1, child2, crossoverPoint) = Crossover(
+                    parent1.GetBin(parent1.IsSelected),
+                    parent2.GetBin(parent2.IsSelected),
+                    l
+                );
+
+                generation[position1].AfterCrossover = child1;
+                generation[position1].CuttingPoint = crossoverPoint;
+                generation[position2].AfterCrossover = child2;
+                generation[position2].CuttingPoint = crossoverPoint;
             }
 
 
