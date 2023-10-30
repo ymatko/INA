@@ -27,7 +27,7 @@ namespace INA
         public double IsSelected { get; set; }
         public double r { get; set; }
         public int CuttingPoint { get; set; }
-        public string Child { get; set; }
+        public string AfterCrossover { get; set; }
 
         public DataGrid(double a, double b, long lp, int l, double d, double pk, double pm)
         {

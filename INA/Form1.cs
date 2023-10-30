@@ -115,13 +115,26 @@ namespace INA
                     data.CuttingPoint = rand.Next(1, l);
                 }
             }
+            //generation = generation.OrderByDescending(data => data.isParent).ToArray();
 
-            // cut
-            for(int i = 0; i < generation.Length; i++)
+
+            // Crossover
+            for (int i = 0; i < generation.Length; i++)
             {
                 if (generation[i].isParent)
                 {
+                    if (i < generation.Length - 1 && generation[i + 1].isParent)
+                    {
+                        var (child1, child2) = Crossover(
+                            generation[i].GetBin(generation[i].IsSelected),
+                            generation[i + 1].GetBin(generation[i + 1].IsSelected),
+                            generation[i].CuttingPoint
+                        );
 
+                        generation[i].AfterCrossover = child1;
+                        generation[i + 1].AfterCrossover = child2;
+                        i++;
+                    }
                 }
             }
 
@@ -141,7 +154,8 @@ namespace INA
                     generation[i].IsSelected,
                     generation[i].GetBin(generation[i].IsSelected),
                     generation[i].isParent ? generation[i].isParent : "",
-                    generation[i].CuttingPoint != 0 ? generation[i].CuttingPoint : ""
+                    generation[i].CuttingPoint != 0 ? generation[i].CuttingPoint : "",
+                    generation[i].AfterCrossover
                     );
             }
         }
