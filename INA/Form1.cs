@@ -5,9 +5,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace INA
 {
-    public partial class MainForm : Form
+    internal partial class MainForm : Form
     {
-        public MainForm()
+        internal MainForm()
         {
             InitializeComponent();
             dataGridView1.Columns.Add("N", "N");
@@ -27,7 +27,7 @@ namespace INA
             dataGridView1.Columns.Add("Real", "Real");
             dataGridView1.Columns.Add("Fx", "F(x)");
         }
-        public Random rand = new Random();
+        internal Random rand = new Random();
         private void BtnCalculate_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
@@ -221,7 +221,7 @@ namespace INA
             }
         }
 
-        public static (string child1, string child2, int cuttingPoint) Crossover(string parent1, string parent2, int l)
+        internal static (string child1, string child2, int cuttingPoint) Crossover(string parent1, string parent2, int l)
         {
             var rand = new Random();
             int crossoverPoint = rand.Next(1, l);
@@ -231,7 +231,7 @@ namespace INA
             return (child1, child2, crossoverPoint);
         }
 
-        private (string result, string mutations) PerformMutation(string input, double mutationProbability)
+        internal (string result, string mutations) PerformMutation(string input, double mutationProbability)
         {
             var rand = new Random();
             var s = input.ToCharArray();
@@ -248,7 +248,6 @@ namespace INA
                     mutations.Append((i + 1).ToString() + " ");
                 }
             }
-
             return (new string(s), mutations.ToString());
         }
     }

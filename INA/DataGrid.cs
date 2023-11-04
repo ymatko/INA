@@ -15,23 +15,23 @@ namespace INA
         private double _d { get; set; }
         private double _pk { get; set; }
         private double _pm { get; set; }
-        public static Random rand = new Random();
-        public double LP { get; set; }
-        public double truexReal { get; set; }
-        public double xReal { get; set; }
-        public double FxReal { get; set; }
-        public double GxReal { get; set; }
-        public double PixReal { get; set; }
-        public double Distributor { get; set; }
-        public bool isParent { get; set; }
-        public double IsSelected { get; set; }
-        public double r { get; set; }
-        public int CuttingPoint { get; set; }
-        public string AfterCrossover { get; set; }
-        public string Mutations { get; set; }
-        public string AfterMutation { get; set; }
+        internal static Random rand = new Random();
+        internal double LP { get; set; }
+        internal double truexReal { get; set; }
+        internal double xReal { get; set; }
+        internal double FxReal { get; set; }
+        internal double GxReal { get; set; }
+        internal double PixReal { get; set; }
+        internal double Distributor { get; set; }
+        internal bool isParent { get; set; }
+        internal double IsSelected { get; set; }
+        internal double r { get; set; }
+        internal int CuttingPoint { get; set; }
+        internal string AfterCrossover { get; set; }
+        internal string Mutations { get; set; }
+        internal string AfterMutation { get; set; }
 
-        public DataGrid(double a, double b, long lp, int l, double d, double pk, double pm)
+        internal DataGrid(double a, double b, long lp, int l, double d, double pk, double pm)
         {
             _a = a;
             _b = b;
@@ -58,18 +58,18 @@ namespace INA
             xReal = Math.Round(truexReal, accuracy);
             FxReal = (xReal % 1.0) * (Math.Cos(20.0 + Math.PI + xReal)) - Math.Sin(xReal);
         }
-        public string GetBin(double value)
+        internal string GetBin(double value)
         {
             long xInt_xReal = (long)Math.Round((1.0 / (_b - _a)) * (value - _a) * ((Math.Pow(2.0, _l)) - 1.0));
              return Convert.ToString(xInt_xReal, 2).PadLeft(_l, '0');
         }
-        public double GetReal(string value)
+        internal double GetReal(string value)
         {
             double xInt_xBin = Convert.ToInt64(value, 2);
             return ((_b - _a) * xInt_xBin) / (Math.Pow(2.0, _l) - 1.0) + _a;
         }
 
-        public double Fx(double value)
+        internal double Fx(double value)
         {
             return (value % 1.0) * (Math.Cos(20.0 + Math.PI + value)) - Math.Sin(value);
         }
