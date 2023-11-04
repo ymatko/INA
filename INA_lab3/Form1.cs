@@ -1,3 +1,4 @@
+using ScottPlot;
 using System.Text;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
@@ -27,12 +28,31 @@ namespace INA_lab3
             {
                 runStatisticsList.Add(CalculateFromLab2(a, b, d, pk, pm, n, generation));
             }
-            
+            Plot(runStatisticsList);
         }
+
+        internal void Plot(List<RunStatistics> list)
+        {
+            int runCount = list.Count;
+            double[] runIndices = Enumerable.Range(1, runCount).Select(i => (double)i).ToArray();
+            double[] minValues = list.Select(stat => stat.MinGxReal).ToArray();
+            double[] maxValues = list.Select(stat => stat.MaxGxReal).ToArray();
+            double[] avgValues = list.Select(stat => stat.AvgGxReal).ToArray();
+
+            formsPlot1.Plot.Clear();
+            formsPlot1.Plot.AddScatter(runIndices, minValues, label: "Minimum");
+            formsPlot1.Plot.AddScatter(runIndices, maxValues, label: "Maximum");
+            formsPlot1.Plot.AddScatter(runIndices, avgValues, label: "Average");
+
+            formsPlot1.Plot.Legend();
+            formsPlot1.Plot.AxisAuto();
+            formsPlot1.Render();
+        }
+
         internal Random rand = new Random();
         private RunStatistics CalculateFromLab2(double a, double b, double d, double pk, double pm, int n, DataGrid[] generation)
         {
-            
+
             int l = (int)Math.Floor(Math.Log((b - a) / d, 2) + 1.0);
 
             for (int i = 0; i < n; i++)
@@ -42,21 +62,25 @@ namespace INA_lab3
             }
 
 
-            double minFxReal = generation.Min(data => data.FxReal);
-            double maxFxReal = generation.Max(data => data.FxReal);
-            double avgFxReal = generation.Average(data => data.FxReal);
+            double maxFxReal = generation.Min(data => data.FxReal);
 
-            var runStatistics = new RunStatistics
-            {
-                MinFxReal = minFxReal,
-                MaxFxReal = maxFxReal,
-                AvgFxReal = avgFxReal
-            };
+
             foreach (DataGrid data in generation)
             {
                 // g(x)
                 data.GxReal = data.FxReal - maxFxReal + d;
             }
+
+            double minGxReal = generation.Min(data => data.GxReal);
+            double maxGxReal = generation.Max(data => data.GxReal);
+            double avgGxReal = generation.Average(data => data.GxReal);
+
+            var runStatistics = new RunStatistics
+            {
+                MinGxReal = minGxReal,
+                MaxGxReal = maxGxReal,
+                AvgGxReal = avgGxReal
+            };
 
             double sumGxReal = generation.Sum(data => data.GxReal);
             foreach (DataGrid data in generation)
@@ -200,7 +224,7 @@ namespace INA_lab3
 
 
             // 
-            foreach(var data in generation)
+            foreach (var data in generation)
             {
                 data.truexReal = data.GetReal(data.AfterMutation);
             }

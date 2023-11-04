@@ -8,8 +8,8 @@ namespace INA_lab3
 {
     internal class RunStatistics
     {
-        public double MinFxReal { get; set; }
-        public double MaxFxReal { get; set; }
-        public double AvgFxReal { get; set; }
+        public double MinGxReal { get; set; }
+        public double MaxGxReal { get; set; }
+        public double AvgGxReal { get; set; }
     }
 }
