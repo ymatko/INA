@@ -160,6 +160,7 @@
             Controls.Add(Calculate);
             Margin = new Padding(2);
             Name = "Form1";
+            Text = "INA_lab1";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();

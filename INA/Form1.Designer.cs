@@ -222,6 +222,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "MainForm";
+            Text = "INA_lab2";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);

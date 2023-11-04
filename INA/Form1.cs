@@ -98,8 +98,8 @@ namespace INA
             }
 
             // for last distributor
-            if (generation[n-1].Distributor != 1)
-                generation[n-1].Distributor = 1;
+            if (generation[n - 1].Distributor != 1)
+                generation[n - 1].Distributor = 1;
 
             // is parent random
             for (int i = 0; i < generation.Length; i++)
@@ -181,7 +181,7 @@ namespace INA
             }
 
             // Not parents
-            foreach(DataGrid data in generation)
+            foreach (DataGrid data in generation)
             {
                 if (!data.isParent)
                     data.AfterCrossover = data.GetBin(data.IsSelected);
