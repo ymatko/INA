@@ -175,6 +175,7 @@
             BtnCalculate.TabIndex = 1;
             BtnCalculate.Text = "Calculate";
             BtnCalculate.UseVisualStyleBackColor = true;
+            BtnCalculate.Click += BtnCalculate_Click;
             // 
             // LblT
             // 
