@@ -12,21 +12,29 @@ namespace INA_lab3
 
         private void BtnCalculate_Click(object sender, EventArgs e)
         {
-
-        }
-        internal Random rand = new Random();
-        private void CalculateFromLab2()
-        {
             double a = Convert.ToDouble(textBox_A.Text);
             double b = Convert.ToDouble(textBox_B.Text);
             double d = Convert.ToDouble(comboBox_D.Text);
             double pk = Convert.ToDouble(textBox_Pk.Text);
             double pm = Convert.ToDouble(textBox_Pm.Text);
             int n = Convert.ToInt32(textBox_N.Text);
-
-            int l = (int)Math.Floor(Math.Log((b - a) / d, 2) + 1.0);
+            bool EliteOn = checkBox_elite.Checked;
+            int t = Convert.ToInt32(textBox_T.Text);
 
             DataGrid[] generation = new DataGrid[n];
+            List<RunStatistics> runStatisticsList = new List<RunStatistics>();
+            for (int i = 0; i < t; i++)
+            {
+                runStatisticsList.Add(CalculateFromLab2(a, b, d, pk, pm, n, generation));
+            }
+            
+        }
+        internal Random rand = new Random();
+        private RunStatistics CalculateFromLab2(double a, double b, double d, double pk, double pm, int n, DataGrid[] generation)
+        {
+            
+            int l = (int)Math.Floor(Math.Log((b - a) / d, 2) + 1.0);
+
             for (int i = 0; i < n; i++)
             {
                 var dataGrid = new DataGrid(a, b, i + 1, l, d, pk, pm);
@@ -36,6 +44,14 @@ namespace INA_lab3
 
             double minFxReal = generation.Min(data => data.FxReal);
             double maxFxReal = generation.Max(data => data.FxReal);
+            double avgFxReal = generation.Average(data => data.FxReal);
+
+            var runStatistics = new RunStatistics
+            {
+                MinFxReal = minFxReal,
+                MaxFxReal = maxFxReal,
+                AvgFxReal = avgFxReal
+            };
             foreach (DataGrid data in generation)
             {
                 // g(x)
@@ -181,6 +197,15 @@ namespace INA_lab3
                 data.AfterMutation = afterMutation;
                 data.Mutations = mutations;
             }
+
+
+            // 
+            foreach(var data in generation)
+            {
+                data.truexReal = data.GetReal(data.AfterMutation);
+            }
+
+            return runStatistics;
         }
 
 
