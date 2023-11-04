@@ -1,4 +1,4 @@
-namespace INA_lab1
+namespace INA_lab_1
 {
     internal static class Program
     {
