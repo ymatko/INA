@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace INA
+namespace INA_lab2
 {
     internal partial class MainForm : Form
     {
@@ -49,10 +49,12 @@ namespace INA
 
 
             double minFxReal = generation.Min(data => data.FxReal);
+            double maxFxReal = generation.Max(data => data.FxReal);
+
             foreach (DataGrid data in generation)
             {
                 // g(x)
-                data.GxReal = data.FxReal - minFxReal + d;
+                data.GxReal = data.FxReal - maxFxReal + d;
             }
 
             double sumGxReal = generation.Sum(data => data.GxReal);
