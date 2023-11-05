@@ -1,4 +1,5 @@
 using ScottPlot;
+using System;
 using System.Text;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
@@ -39,7 +40,7 @@ namespace INA_lab3
 
             for (int i = 0; i < t; i++)
             {
-                runStatisticsList.Add(Calculate(d, l, pk, pm, n, generation));
+                runStatisticsList.Add(Calculate(d, l, pk, pm, n, generation, EliteOn));
             }
             Plot(runStatisticsList);
         }
@@ -62,7 +63,7 @@ namespace INA_lab3
             formsPlot1.Render();
         }
 
-        private RunStatistics Calculate(double d, int l, double pk, double pm, int n, DataGrid[] generation)
+        private RunStatistics Calculate(double d, int l, double pk, double pm, int n, DataGrid[] generation, bool eliteOn)
         {
             double maxFxReal = generation.Max(data => data.FxReal);
 
@@ -223,7 +224,7 @@ namespace INA_lab3
                 data.Mutations = mutations;
             }
 
-            double[] newGeneration =  NewGeneration(generation);
+            double[] newGeneration =  NewGeneration(generation, eliteOn);
             for (int i = 0; i < generation.Length; i++)
             {
                 generation[i].LP = 0; // Установка LP в начальное значение (например, 0)
@@ -244,12 +245,26 @@ namespace INA_lab3
             return runStatistics;
         }
 
-        private double[] NewGeneration(DataGrid[] generation)
+        private double[] NewGeneration(DataGrid[] generation, bool eliteOn)
         {
             double[] newGeneration = new double[generation.Length];
             for(int i = 0; i < newGeneration.Length; i++)
             {
                 newGeneration[i] = generation[i].GetReal(generation[i].AfterMutation);
+            }
+            if (eliteOn)
+            {
+                double maxGeneration = newGeneration.Max(d => d);
+                if (!newGeneration.Contains(maxGeneration))
+                {
+                    int randomIndex;
+                    do
+                    {
+                        randomIndex = rand.Next(newGeneration.Length);
+                    } while (newGeneration[randomIndex] >= maxGeneration);
+
+                    newGeneration[randomIndex] = maxGeneration;
+                }
             }
             return newGeneration;
         }
