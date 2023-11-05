@@ -69,9 +69,9 @@ namespace INA_lab3
             return ((_b - _a) * xInt_xBin) / (Math.Pow(2.0, _l) - 1.0) + _a;
         }
 
-        internal double Fx(double value)
+        internal void Fx(double xreal)
         {
-            return (value % 1.0) * (Math.Cos(20.0 + Math.PI + value)) - Math.Sin(value);
+            FxReal = (xreal % 1.0) * (Math.Cos(20.0 + Math.PI + xreal)) - Math.Sin(xreal);
         }
     }
 }

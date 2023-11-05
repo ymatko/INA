@@ -10,6 +10,7 @@ namespace INA_lab3
         {
             InitializeComponent();
         }
+        internal Random rand = new Random();
 
         private void BtnCalculate_Click(object sender, EventArgs e)
         {
@@ -23,10 +24,22 @@ namespace INA_lab3
             int t = Convert.ToInt32(textBox_T.Text);
 
             DataGrid[] generation = new DataGrid[n];
+
+            int l = (int)Math.Floor(Math.Log((b - a) / d, 2) + 1.0);
+
+            for (int i = 0; i < n; i++)
+            {
+                var dataGrid = new DataGrid(a, b, i + 1, l, d, pk, pm);
+                generation[i] = dataGrid;
+            }
+
+
+
             List<RunStatistics> runStatisticsList = new List<RunStatistics>();
+
             for (int i = 0; i < t; i++)
             {
-                runStatisticsList.Add(CalculateFromLab2(a, b, d, pk, pm, n, generation));
+                runStatisticsList.Add(Calculate(d, l, pk, pm, n, generation));
             }
             Plot(runStatisticsList);
         }
@@ -49,25 +62,13 @@ namespace INA_lab3
             formsPlot1.Render();
         }
 
-        internal Random rand = new Random();
-        private RunStatistics CalculateFromLab2(double a, double b, double d, double pk, double pm, int n, DataGrid[] generation)
+        private RunStatistics Calculate(double d, int l, double pk, double pm, int n, DataGrid[] generation)
         {
+            double maxFxReal = generation.Max(data => data.FxReal);
 
-            int l = (int)Math.Floor(Math.Log((b - a) / d, 2) + 1.0);
-
-            for (int i = 0; i < n; i++)
-            {
-                var dataGrid = new DataGrid(a, b, i + 1, l, d, pk, pm);
-                generation[i] = dataGrid;
-            }
-
-
-            double maxFxReal = generation.Min(data => data.FxReal);
-
-
+            // g(x)
             foreach (DataGrid data in generation)
             {
-                // g(x)
                 data.GxReal = data.FxReal - maxFxReal + d;
             }
 
@@ -82,16 +83,16 @@ namespace INA_lab3
                 AvgGxReal = avgGxReal
             };
 
+            // Pi
             double sumGxReal = generation.Sum(data => data.GxReal);
             foreach (DataGrid data in generation)
             {
-                // Pi
                 data.PixReal = data.GxReal / sumGxReal;
             }
 
+            // Distributor
             for (int i = 0; i < generation.Length; i++)
             {
-                // Distributor
                 if (i == 0)
                     generation[0].Distributor = generation[0].PixReal;
                 else
@@ -222,16 +223,36 @@ namespace INA_lab3
                 data.Mutations = mutations;
             }
 
-
-            // 
-            foreach (var data in generation)
+            double[] newGeneration =  NewGeneration(generation);
+            for (int i = 0; i < generation.Length; i++)
             {
-                data.truexReal = data.GetReal(data.AfterMutation);
+                generation[i].LP = 0; // ”становка LP в начальное значение (например, 0)
+                generation[i].truexReal = 0.0; // ”становка truexReal в начальное значение (например, 0.0 дл€ числа с плавающей зап€той)
+                generation[i].xReal = newGeneration[i]; ; // ”становка xReal в начальное значение newGeneration[i]
+                generation[i].Fx(generation[i].xReal); // ”становка FxReal в начальное значение (например, 0.0)
+                generation[i].GxReal = 0.0; // ”становка GxReal в начальное значение (например, 0.0)
+                generation[i].PixReal = 0.0; // ”становка PixReal в начальное значение (например, 0.0)
+                generation[i].Distributor = 0.0; // ”становка Distributor в начальное значение (например, 0.0)
+                generation[i].isParent = false; // ”становка isParent в начальное значение (например, false)
+                generation[i].IsSelected = 0.0; // ”становка IsSelected в начальное значение (например, 0.0)
+                generation[i].r = 0.0; // ”становка r в начальное значение (например, 0.0)
+                generation[i].CuttingPoint = 0; // ”становка CuttingPoint в начальное значение (например, 0)
+                generation[i].AfterCrossover = null; // ”становка AfterCrossover в начальное значение (например, null дл€ строк)
+                generation[i].Mutations = null; // ”становка Mutations в начальное значение (например, null дл€ строк)
+                generation[i].AfterMutation = null; // ”становка AfterMutation в начальное значение (например, null дл€ строк)
             }
-
             return runStatistics;
         }
 
+        private double[] NewGeneration(DataGrid[] generation)
+        {
+            double[] newGeneration = new double[generation.Length];
+            for(int i = 0; i < newGeneration.Length; i++)
+            {
+                newGeneration[i] = generation[i].GetReal(generation[i].AfterMutation);
+            }
+            return newGeneration;
+        }
 
         internal static (string child1, string child2, int cuttingPoint) Crossover(string parent1, string parent2, int l)
         {
