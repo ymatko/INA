@@ -1,12 +1,16 @@
 using ScottPlot;
 using System;
+using System.ComponentModel;
 using System.Text;
+using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace INA_lab3
 {
     internal partial class Form1 : Form
     {
+        private BindingList<GridDataWithPercentage> bindingList = new BindingList<GridDataWithPercentage>();
+
         internal Form1()
         {
             InitializeComponent();
@@ -43,6 +47,7 @@ namespace INA_lab3
                 runStatisticsList.Add(Calculate(d, l, pk, pm, n, generation, EliteOn));
             }
             Plot(runStatisticsList);
+            ViewData(generation);
         }
 
         internal void Plot(List<RunStatistics> list)
@@ -224,7 +229,7 @@ namespace INA_lab3
                 data.Mutations = mutations;
             }
 
-            double[] newGeneration =  NewGeneration(generation, eliteOn);
+            double[] newGeneration = NewGeneration(generation, eliteOn);
             for (int i = 0; i < generation.Length; i++)
             {
                 generation[i].LP = 0; // Установка LP в начальное значение (например, 0)
@@ -248,14 +253,14 @@ namespace INA_lab3
         private double[] NewGeneration(DataGrid[] generation, bool eliteOn)
         {
             double[] newGeneration = new double[generation.Length];
-            for(int i = 0; i < newGeneration.Length; i++)
+            for (int i = 0; i < newGeneration.Length; i++)
             {
                 newGeneration[i] = generation[i].GetReal(generation[i].AfterMutation);
             }
             if (eliteOn)
             {
-                double maxGeneration = newGeneration.Max(d => d);
-                if (!newGeneration.Contains(maxGeneration))
+                double maxGeneration = newGeneration.Max();
+                if (!newGeneration.Contains(newGeneration.Max()))
                 {
                     int randomIndex;
                     do
@@ -267,6 +272,32 @@ namespace INA_lab3
                 }
             }
             return newGeneration;
+        }
+
+        private void ViewData(DataGrid[] generation)
+        {
+            dataGridView1.Rows.Clear();
+
+            var top10 = generation.OrderBy(data => data.GxReal).Take(10).ToList();
+            var sum = top10.Sum(data => data.GxReal);
+
+            bindingList.Clear();
+
+            for (int i = 0; i < top10.Count; i++)
+            {
+                double percentage = (top10[i].GxReal / sum) * 100.0;
+                bindingList.Add(new GridDataWithPercentage
+                {
+                    N = i + 1,
+                    XReal = top10[i].GetReal(top10[i].AfterMutation),
+                    XBin = top10[i].AfterMutation,
+                    GxReal = top10[i].GxReal,
+                    Percentage = percentage
+                });
+            }
+            bindingList.OrderBy(data => data.XReal);
+            dataGridView1.DataSource = bindingList;
+
         }
 
         internal static (string child1, string child2, int cuttingPoint) Crossover(string parent1, string parent2, int l)

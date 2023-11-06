@@ -48,13 +48,16 @@
             panel2 = new Panel();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            formsPlot1 = new ScottPlot.FormsPlot();
             tabPage2 = new TabPage();
             tabPage3 = new TabPage();
-            formsPlot1 = new ScottPlot.FormsPlot();
+            dataGridView1 = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -261,8 +264,18 @@
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // formsPlot1
+            // 
+            formsPlot1.Dock = DockStyle.Fill;
+            formsPlot1.Location = new Point(3, 3);
+            formsPlot1.Margin = new Padding(4, 3, 4, 3);
+            formsPlot1.Name = "formsPlot1";
+            formsPlot1.Size = new Size(786, 369);
+            formsPlot1.TabIndex = 0;
+            // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(dataGridView1);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -280,14 +293,19 @@
             tabPage3.Text = "tabPage3";
             tabPage3.UseVisualStyleBackColor = true;
             // 
-            // formsPlot1
+            // dataGridView1
             // 
-            formsPlot1.Dock = DockStyle.Fill;
-            formsPlot1.Location = new Point(3, 3);
-            formsPlot1.Margin = new Padding(4, 3, 4, 3);
-            formsPlot1.Name = "formsPlot1";
-            formsPlot1.Size = new Size(786, 369);
-            formsPlot1.TabIndex = 0;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(3, 3);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(786, 369);
+            dataGridView1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -303,6 +321,8 @@
             panel2.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -331,5 +351,6 @@
         private TabPage tabPage2;
         private TabPage tabPage3;
         private ScottPlot.FormsPlot formsPlot1;
+        private DataGridView dataGridView1;
     }
 }
