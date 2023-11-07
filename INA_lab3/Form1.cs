@@ -47,7 +47,7 @@ namespace INA_lab3
                 runStatisticsList.Add(Calculate(d, l, pk, pm, n, generation, EliteOn));
             }
             Plot(runStatisticsList);
-            //ViewData(generation);
+            ViewData(generation);
         }
 
         internal void Plot(List<RunStatistics> list)
@@ -266,6 +266,8 @@ namespace INA_lab3
 
                     generation[randomIndex].FxReal = maxFxData.FxReal;
                     generation[randomIndex].xReal = maxFxData.xReal;
+                    generation[randomIndex].NewFxReal = maxFxData.FxReal;
+                    generation[randomIndex].NewxReal = maxFxData.xReal;
                 }
             }
             else
@@ -279,31 +281,34 @@ namespace INA_lab3
         }
 
 
-        //private void ViewData(DataGrid[] generation)
-        //{
-        //    dataGridView1.Rows.Clear();
+        private void ViewData(DataGrid[] generation)
+        {
+            dataGridView1.Rows.Clear();
 
-        //    var top10 = generation.OrderBy(data => data.GxReal).Take(10).ToList();
-        //    var sum = top10.Sum(data => data.GxReal);
+            var top10 = generation.OrderBy(data => data.GxReal).Take(10).ToList();
+            var sum = top10.Sum(data => data.GxReal);
 
-        //    bindingList.Clear();
+            bindingList.Clear();
 
-        //    for (int i = 0; i < top10.Count; i++)
-        //    {
-        //        double percentage = (top10[i].GxReal / sum) * 100.0;
-        //        bindingList.Add(new GridDataWithPercentage
-        //        {
-        //            N = i + 1,
-        //            XReal = top10[i].GetReal(top10[i].AfterMutation),
-        //            XBin = top10[i].AfterMutation,
-        //            GxReal = top10[i].GxReal,
-        //            Percentage = percentage
-        //        });
-        //    }
-        //    bindingList.OrderBy(data => data.XReal);
-        //    dataGridView1.DataSource = bindingList;
+            for (int i = 0; i < top10.Count; i++)
+            {
+                double percentage = (top10[i].GxReal / sum) * 100.0;
+                if(percentage > 1)
+                {
+                    bindingList.Add(new GridDataWithPercentage
+                    {
+                        N = i + 1,
+                        XReal = top10[i].xReal,
+                        XBin = top10[i].AfterMutation,
+                        GxReal = top10[i].GxReal,
+                        Percentage = percentage
+                    });
+                }
+            }
+            bindingList.OrderBy(data => data.Percentage);
+            dataGridView1.DataSource = bindingList;
 
-        //}
+        }
 
         internal static (string child1, string child2, int cuttingPoint) Crossover(string parent1, string parent2, int l)
         {
