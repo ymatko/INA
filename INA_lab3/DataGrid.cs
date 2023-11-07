@@ -60,6 +60,12 @@ namespace INA_lab3
             xReal = Math.Round(truexReal, accuracy);
             FxReal = (xReal % 1.0) * (Math.Cos(20.0 + Math.PI + xReal)) - Math.Sin(xReal);
         }
+
+        internal DataGrid(DataGrid other)
+        {
+            this.FxReal = other.FxReal;
+            this.xReal = other.xReal;
+        }
         internal string GetBin(double value)
         {
             long xInt_xReal = (long)Math.Round((1.0 / (_b - _a)) * (value - _a) * ((Math.Pow(2.0, _l)) - 1.0));

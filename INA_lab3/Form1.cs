@@ -217,7 +217,7 @@ namespace INA_lab3
             }
 
             //new xReal nad FxReal
-            foreach(DataGrid data in generation)
+            foreach (DataGrid data in generation)
             {
                 data.GetNewReal();
                 data.GetNewFxReal();
@@ -243,7 +243,30 @@ namespace INA_lab3
         {
             if (elite)
             {
+                DataGrid maxFxData = new DataGrid(generation.OrderByDescending(data => data.FxReal).First());
+                for (int i = 0; i < generation.Length; i++)
+                {
+                    generation[i].xReal = generation[i].NewxReal;
+                    generation[i].FxReal = generation[i].NewFxReal;
+                }
 
+                double[] FxGeneration = new double[generation.Length];
+                for (int i = 0; i < FxGeneration.Length; i++)
+                {
+                    FxGeneration[i] = generation[i].FxReal;
+                }
+
+                if (!FxGeneration.Contains(maxFxData.FxReal))
+                {
+                    int randomIndex;
+                    do
+                    {
+                        randomIndex = rand.Next(FxGeneration.Length);
+                    } while (FxGeneration[randomIndex] >= maxFxData.FxReal);
+
+                    generation[randomIndex].FxReal = maxFxData.FxReal;
+                    generation[randomIndex].xReal = maxFxData.xReal;
+                }
             }
             else
             {
