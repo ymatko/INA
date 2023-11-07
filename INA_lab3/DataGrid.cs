@@ -30,6 +30,8 @@ namespace INA_lab3
         internal string AfterCrossover { get; set; }
         internal string Mutations { get; set; }
         internal string AfterMutation { get; set; }
+        internal double NewxReal { get; set; }
+        internal double NewFxReal { get; set; }
 
         internal DataGrid(double a, double b, long lp, int l, double d, double pk, double pm)
         {
@@ -63,15 +65,15 @@ namespace INA_lab3
             long xInt_xReal = (long)Math.Round((1.0 / (_b - _a)) * (value - _a) * ((Math.Pow(2.0, _l)) - 1.0));
              return Convert.ToString(xInt_xReal, 2).PadLeft(_l, '0');
         }
-        internal double GetReal(string value)
+        internal void GetNewReal()
         {
-            double xInt_xBin = Convert.ToInt64(value, 2);
-            return ((_b - _a) * xInt_xBin) / (Math.Pow(2.0, _l) - 1.0) + _a;
+            double xInt_xBin = Convert.ToInt64(AfterMutation, 2);
+            NewxReal = ((_b - _a) * xInt_xBin) / (Math.Pow(2.0, _l) - 1.0) + _a;
         }
 
-        internal void Fx(double xreal)
+        internal void GetNewFxReal()
         {
-            FxReal = (xreal % 1.0) * (Math.Cos(20.0 + Math.PI + xreal)) - Math.Sin(xreal);
+            NewFxReal = (NewxReal % 1.0) * (Math.Cos(20.0 + Math.PI + NewxReal)) - Math.Sin(NewxReal);
         }
     }
 }

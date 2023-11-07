@@ -47,7 +47,7 @@ namespace INA_lab3
                 runStatisticsList.Add(Calculate(d, l, pk, pm, n, generation, EliteOn));
             }
             Plot(runStatisticsList);
-            ViewData(generation);
+            //ViewData(generation);
         }
 
         internal void Plot(List<RunStatistics> list)
@@ -70,24 +70,12 @@ namespace INA_lab3
 
         private RunStatistics Calculate(double d, int l, double pk, double pm, int n, DataGrid[] generation, bool eliteOn)
         {
-            double maxFxReal = generation.Max(data => data.FxReal);
-
             // g(x)
+            double maxFxReal = generation.Max(data => data.FxReal);
             foreach (DataGrid data in generation)
             {
                 data.GxReal = data.FxReal - maxFxReal + d;
             }
-
-            double minGxReal = generation.Min(data => data.GxReal);
-            double maxGxReal = generation.Max(data => data.GxReal);
-            double avgGxReal = generation.Average(data => data.GxReal);
-
-            var runStatistics = new RunStatistics
-            {
-                MinGxReal = minGxReal,
-                MaxGxReal = maxGxReal,
-                AvgGxReal = avgGxReal
-            };
 
             // Pi
             double sumGxReal = generation.Sum(data => data.GxReal);
@@ -104,7 +92,6 @@ namespace INA_lab3
                 else
                     generation[i].Distributor = generation[i - 1].Distributor + generation[i].PixReal;
             }
-
 
             // selection
             double x;
@@ -229,76 +216,71 @@ namespace INA_lab3
                 data.Mutations = mutations;
             }
 
-            double[] newGeneration = NewGeneration(generation, eliteOn);
-            for (int i = 0; i < generation.Length; i++)
+            //new xReal nad FxReal
+            foreach(DataGrid data in generation)
             {
-                generation[i].LP = 0; // ”становка LP в начальное значение (например, 0)
-                generation[i].truexReal = 0.0; // ”становка truexReal в начальное значение (например, 0.0 дл€ числа с плавающей зап€той)
-                generation[i].xReal = newGeneration[i]; ; // ”становка xReal в начальное значение newGeneration[i]
-                generation[i].Fx(generation[i].xReal); // ”становка FxReal в начальное значение (например, 0.0)
-                generation[i].GxReal = 0.0; // ”становка GxReal в начальное значение (например, 0.0)
-                generation[i].PixReal = 0.0; // ”становка PixReal в начальное значение (например, 0.0)
-                generation[i].Distributor = 0.0; // ”становка Distributor в начальное значение (например, 0.0)
-                generation[i].isParent = false; // ”становка isParent в начальное значение (например, false)
-                generation[i].IsSelected = 0.0; // ”становка IsSelected в начальное значение (например, 0.0)
-                generation[i].r = 0.0; // ”становка r в начальное значение (например, 0.0)
-                generation[i].CuttingPoint = 0; // ”становка CuttingPoint в начальное значение (например, 0)
-                generation[i].AfterCrossover = null; // ”становка AfterCrossover в начальное значение (например, null дл€ строк)
-                generation[i].Mutations = null; // ”становка Mutations в начальное значение (например, null дл€ строк)
-                generation[i].AfterMutation = null; // ”становка AfterMutation в начальное значение (например, null дл€ строк)
+                data.GetNewReal();
+                data.GetNewFxReal();
             }
+
+
+
+            double minGxReal = generation.Min(data => data.FxReal);
+            double maxGxReal = generation.Max(data => data.FxReal);
+            double avgGxReal = generation.Average(data => data.FxReal);
+
+            var runStatistics = new RunStatistics
+            {
+                MinGxReal = minGxReal,
+                MaxGxReal = maxGxReal,
+                AvgGxReal = avgGxReal
+            };
+            NewGeneration(generation, eliteOn);
             return runStatistics;
         }
 
-        private double[] NewGeneration(DataGrid[] generation, bool eliteOn)
+        private void NewGeneration(DataGrid[] generation, bool elite)
         {
-            double[] newGeneration = new double[generation.Length];
-            for (int i = 0; i < newGeneration.Length; i++)
+            if (elite)
             {
-                newGeneration[i] = generation[i].GetReal(generation[i].AfterMutation);
-            }
-            if (eliteOn)
-            {
-                double maxGeneration = newGeneration.Max();
-                if (!newGeneration.Contains(newGeneration.Max()))
-                {
-                    int randomIndex;
-                    do
-                    {
-                        randomIndex = rand.Next(newGeneration.Length);
-                    } while (newGeneration[randomIndex] >= maxGeneration);
 
-                    newGeneration[randomIndex] = maxGeneration;
+            }
+            else
+            {
+                for (int i = 0; i < generation.Length; i++)
+                {
+                    generation[i].xReal = generation[i].NewxReal;
+                    generation[i].FxReal = generation[i].NewFxReal;
                 }
             }
-            return newGeneration;
         }
 
-        private void ViewData(DataGrid[] generation)
-        {
-            dataGridView1.Rows.Clear();
 
-            var top10 = generation.OrderBy(data => data.GxReal).Take(10).ToList();
-            var sum = top10.Sum(data => data.GxReal);
+        //private void ViewData(DataGrid[] generation)
+        //{
+        //    dataGridView1.Rows.Clear();
 
-            bindingList.Clear();
+        //    var top10 = generation.OrderBy(data => data.GxReal).Take(10).ToList();
+        //    var sum = top10.Sum(data => data.GxReal);
 
-            for (int i = 0; i < top10.Count; i++)
-            {
-                double percentage = (top10[i].GxReal / sum) * 100.0;
-                bindingList.Add(new GridDataWithPercentage
-                {
-                    N = i + 1,
-                    XReal = top10[i].GetReal(top10[i].AfterMutation),
-                    XBin = top10[i].AfterMutation,
-                    GxReal = top10[i].GxReal,
-                    Percentage = percentage
-                });
-            }
-            bindingList.OrderBy(data => data.XReal);
-            dataGridView1.DataSource = bindingList;
+        //    bindingList.Clear();
 
-        }
+        //    for (int i = 0; i < top10.Count; i++)
+        //    {
+        //        double percentage = (top10[i].GxReal / sum) * 100.0;
+        //        bindingList.Add(new GridDataWithPercentage
+        //        {
+        //            N = i + 1,
+        //            XReal = top10[i].GetReal(top10[i].AfterMutation),
+        //            XBin = top10[i].AfterMutation,
+        //            GxReal = top10[i].GxReal,
+        //            Percentage = percentage
+        //        });
+        //    }
+        //    bindingList.OrderBy(data => data.XReal);
+        //    dataGridView1.DataSource = bindingList;
+
+        //}
 
         internal static (string child1, string child2, int cuttingPoint) Crossover(string parent1, string parent2, int l)
         {
