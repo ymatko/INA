@@ -290,19 +290,18 @@ namespace INA_lab3
         {
             dataGridView1.Rows.Clear();
 
-            var top10 = generation.OrderBy(data => data.GxReal).Take(10).ToList();
-            var sum = top10.Sum(data => data.GxReal);
+            var sum = generation.Sum(data => data.GxReal);
 
-            for (int i = 0; i < top10.Count; i++)
+            for (int i = 0; i < generation.Length; i++)
             {
-                double percentage = (top10[i].GxReal / sum) * 100.0;
-                if (percentage > 10)
+                double percentage = (generation[i].GxReal / sum) * 100.0;
+                if (true)
                 {
                     dataGridView1.Rows.Add(
                         i + 1,                    // N
-                        top10[i].xReal,           // XReal
-                        top10[i].AfterMutation,   // XBin
-                        top10[i].GxReal,          // GxReal
+                        generation[i].xReal,           // XReal
+                        generation[i].AfterMutation,   // XBin
+                        generation[i].GxReal,          // GxReal
                         percentage                 // Percentage
                     );
                 }
