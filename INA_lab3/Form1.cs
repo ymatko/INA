@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace INA_lab3
@@ -74,7 +75,7 @@ namespace INA_lab3
             double maxFxReal = generation.Max(data => data.FxReal);
             foreach (DataGrid data in generation)
             {
-                data.GxReal = data.FxReal - maxFxReal + d;
+                data.GxReal =  - (data.FxReal - maxFxReal) + d;
             }
 
             // Pi
@@ -211,6 +212,10 @@ namespace INA_lab3
             // Mutations
             foreach (var data in generation)
             {
+                if (data.AfterCrossover == null)
+                {
+                    data.AfterCrossover = "0";
+                }
                 var (afterMutation, mutations) = PerformMutation(data.AfterCrossover, pm);
                 data.AfterMutation = afterMutation;
                 data.Mutations = mutations;
@@ -223,17 +228,12 @@ namespace INA_lab3
                 data.GetNewFxReal();
             }
 
-
-
-            double minGxReal = generation.Min(data => data.FxReal);
-            double maxGxReal = generation.Max(data => data.FxReal);
-            double avgGxReal = generation.Average(data => data.FxReal);
-
+            // add to addGridView
             var runStatistics = new RunStatistics
             {
-                MinGxReal = minGxReal,
-                MaxGxReal = maxGxReal,
-                AvgGxReal = avgGxReal
+                MinGxReal = generation.Min(data => data.GxReal),
+                MaxGxReal = generation.Max(data => data.GxReal),
+                AvgGxReal = generation.Average(data => data.GxReal)
             };
             NewGeneration(generation, eliteOn);
             return runStatistics;
@@ -264,18 +264,18 @@ namespace INA_lab3
                         randomIndex = rand.Next(FxGeneration.Length);
                     } while (FxGeneration[randomIndex] >= maxFxData.FxReal);
 
-                    generation[randomIndex].FxReal = maxFxData.FxReal;
-                    generation[randomIndex].xReal = maxFxData.xReal;
-                    generation[randomIndex].NewFxReal = maxFxData.FxReal;
-                    generation[randomIndex].NewxReal = maxFxData.xReal;
+                    generation[randomIndex].FxReal = Math.Round(maxFxData.FxReal, 2);
+                    generation[randomIndex].xReal = Math.Round(maxFxData.xReal, 2);
+                    generation[randomIndex].NewFxReal = Math.Round(maxFxData.FxReal, 2);
+                    generation[randomIndex].NewxReal = Math.Round(maxFxData.xReal, 2);
                 }
             }
             else
             {
                 for (int i = 0; i < generation.Length; i++)
                 {
-                    generation[i].xReal = generation[i].NewxReal;
-                    generation[i].FxReal = generation[i].NewFxReal;
+                    generation[i].xReal = Math.Round(generation[i].NewxReal, 2);
+                    generation[i].FxReal = Math.Round(generation[i].NewFxReal, 2);
                 }
             }
         }
@@ -293,7 +293,7 @@ namespace INA_lab3
             for (int i = 0; i < top10.Count; i++)
             {
                 double percentage = (top10[i].GxReal / sum) * 100.0;
-                if(percentage > 1)
+                if (percentage > 1)
                 {
                     bindingList.Add(new GridDataWithPercentage
                     {

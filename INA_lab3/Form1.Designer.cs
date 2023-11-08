@@ -50,8 +50,8 @@
             tabPage1 = new TabPage();
             formsPlot1 = new ScottPlot.FormsPlot();
             tabPage2 = new TabPage();
-            tabPage3 = new TabPage();
             dataGridView1 = new DataGridView();
+            tabPage3 = new TabPage();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -155,12 +155,12 @@
             // comboBox_D
             // 
             comboBox_D.FormattingEnabled = true;
-            comboBox_D.Items.AddRange(new object[] { "0.1", "0.01", "0.001" });
+            comboBox_D.Items.AddRange(new object[] { "0.1", "0.01", "0.001", "0.0001" });
             comboBox_D.Location = new Point(200, 11);
             comboBox_D.Name = "comboBox_D";
             comboBox_D.Size = new Size(67, 23);
             comboBox_D.TabIndex = 2;
-            comboBox_D.Text = "0.1";
+            comboBox_D.Text = "0.0001";
             // 
             // LblA
             // 
@@ -284,15 +284,6 @@
             tabPage2.Text = "tabPage2";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
-            // 
-            tabPage3.Location = new Point(4, 24);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(792, 375);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "tabPage3";
-            tabPage3.UseVisualStyleBackColor = true;
-            // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
@@ -306,6 +297,15 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(786, 369);
             dataGridView1.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(792, 375);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "tabPage3";
+            tabPage3.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
