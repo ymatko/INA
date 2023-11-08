@@ -15,6 +15,11 @@ namespace INA_lab3
         internal Form1()
         {
             InitializeComponent();
+            dataGridView1.Columns.Add("N", "N");
+            dataGridView1.Columns.Add("xReal", "xReal");
+            dataGridView1.Columns.Add("xBin", "xBin");
+            dataGridView1.Columns.Add("GxReal", "GxReal");
+            dataGridView1.Columns.Add("Percentage", "Percentage");
         }
         internal Random rand = new Random();
 
@@ -264,18 +269,18 @@ namespace INA_lab3
                         randomIndex = rand.Next(FxGeneration.Length);
                     } while (FxGeneration[randomIndex] >= maxFxData.FxReal);
 
-                    generation[randomIndex].FxReal = Math.Round(maxFxData.FxReal, 2);
-                    generation[randomIndex].xReal = Math.Round(maxFxData.xReal, 2);
-                    generation[randomIndex].NewFxReal = Math.Round(maxFxData.FxReal, 2);
-                    generation[randomIndex].NewxReal = Math.Round(maxFxData.xReal, 2);
+                    generation[randomIndex].FxReal = maxFxData.FxReal;
+                    generation[randomIndex].xReal = maxFxData.xReal;
+                    generation[randomIndex].NewFxReal = maxFxData.FxReal;
+                    generation[randomIndex].NewxReal = maxFxData.xReal;
                 }
             }
             else
             {
                 for (int i = 0; i < generation.Length; i++)
                 {
-                    generation[i].xReal = Math.Round(generation[i].NewxReal, 2);
-                    generation[i].FxReal = Math.Round(generation[i].NewFxReal, 2);
+                    generation[i].xReal = generation[i].NewxReal;
+                    generation[i].FxReal = generation[i].NewFxReal;
                 }
             }
         }
@@ -288,26 +293,21 @@ namespace INA_lab3
             var top10 = generation.OrderBy(data => data.GxReal).Take(10).ToList();
             var sum = top10.Sum(data => data.GxReal);
 
-            bindingList.Clear();
-
             for (int i = 0; i < top10.Count; i++)
             {
                 double percentage = (top10[i].GxReal / sum) * 100.0;
-                if (percentage > 1)
+                if (percentage > 10)
                 {
-                    bindingList.Add(new GridDataWithPercentage
-                    {
-                        N = i + 1,
-                        XReal = top10[i].xReal,
-                        XBin = top10[i].AfterMutation,
-                        GxReal = top10[i].GxReal,
-                        Percentage = percentage
-                    });
+                    dataGridView1.Rows.Add(
+                        i + 1,                    // N
+                        top10[i].xReal,           // XReal
+                        top10[i].AfterMutation,   // XBin
+                        top10[i].GxReal,          // GxReal
+                        percentage                 // Percentage
+                    );
                 }
             }
-            bindingList.OrderBy(data => data.Percentage);
-            dataGridView1.DataSource = bindingList;
-
+            dataGridView1.Sort(dataGridView1.Columns["Percentage"], ListSortDirection.Descending);
         }
 
         internal static (string child1, string child2, int cuttingPoint) Crossover(string parent1, string parent2, int l)
