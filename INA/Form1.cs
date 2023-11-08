@@ -54,7 +54,7 @@ namespace INA_lab2
             foreach (DataGrid data in generation)
             {
                 // g(x)
-                data.GxReal = data.FxReal - maxFxReal + d;
+                data.GxReal = -(data.FxReal - maxFxReal) + d;
             }
 
             double sumGxReal = generation.Sum(data => data.GxReal);
