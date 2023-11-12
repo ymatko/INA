@@ -39,7 +39,7 @@
             LblB = new Label();
             comboBox_D = new ComboBox();
             LblA = new Label();
-            BtnCalculate = new Button();
+            btnCalculate = new Button();
             LblT = new Label();
             LblD = new Label();
             LblN = new Label();
@@ -52,12 +52,16 @@
             tabPage2 = new TabPage();
             dataGridView1 = new DataGridView();
             tabPage3 = new TabPage();
+            dataGridView2 = new DataGridView();
+            btnCalcTest = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -72,7 +76,7 @@
             panel1.Controls.Add(LblB);
             panel1.Controls.Add(comboBox_D);
             panel1.Controls.Add(LblA);
-            panel1.Controls.Add(BtnCalculate);
+            panel1.Controls.Add(btnCalculate);
             panel1.Controls.Add(LblT);
             panel1.Controls.Add(LblD);
             panel1.Controls.Add(LblN);
@@ -172,15 +176,15 @@
             LblA.TabIndex = 0;
             LblA.Text = "a:";
             // 
-            // BtnCalculate
+            // btnCalculate
             // 
-            BtnCalculate.Location = new Point(721, 7);
-            BtnCalculate.Name = "BtnCalculate";
-            BtnCalculate.Size = new Size(75, 34);
-            BtnCalculate.TabIndex = 1;
-            BtnCalculate.Text = "Calculate";
-            BtnCalculate.UseVisualStyleBackColor = true;
-            BtnCalculate.Click += BtnCalculate_Click;
+            btnCalculate.Location = new Point(721, 7);
+            btnCalculate.Name = "btnCalculate";
+            btnCalculate.Size = new Size(75, 34);
+            btnCalculate.TabIndex = 1;
+            btnCalculate.Text = "Calculate";
+            btnCalculate.UseVisualStyleBackColor = true;
+            btnCalculate.Click += btnCalculate_Click;
             // 
             // LblT
             // 
@@ -261,7 +265,7 @@
             tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(792, 375);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
+            tabPage1.Text = "Graph";
             tabPage1.UseVisualStyleBackColor = true;
             // 
             // formsPlot1
@@ -281,7 +285,7 @@
             tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(792, 375);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
+            tabPage2.Text = "Last population";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
@@ -300,12 +304,33 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(dataGridView2);
+            tabPage3.Controls.Add(btnCalcTest);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
             tabPage3.Size = new Size(792, 375);
             tabPage3.TabIndex = 2;
-            tabPage3.Text = "tabPage3";
+            tabPage3.Text = "Tests";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(3, 3);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowTemplate.Height = 25;
+            dataGridView2.Size = new Size(705, 369);
+            dataGridView2.TabIndex = 1;
+            // 
+            // btnCalcTest
+            // 
+            btnCalcTest.Location = new Point(714, 3);
+            btnCalcTest.Name = "btnCalcTest";
+            btnCalcTest.Size = new Size(75, 23);
+            btnCalcTest.TabIndex = 0;
+            btnCalcTest.Text = "Start Test";
+            btnCalcTest.UseVisualStyleBackColor = true;
+            btnCalcTest.Click += btnCalcTest_Click;
             // 
             // Form1
             // 
@@ -323,6 +348,8 @@
             tabPage1.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
         }
 
@@ -337,7 +364,7 @@
         private Label LblB;
         private ComboBox comboBox_D;
         private Label LblA;
-        private Button BtnCalculate;
+        private Button btnCalculate;
         private Label LblD;
         private Label LblN;
         private Label LblPk;
@@ -352,5 +379,7 @@
         private TabPage tabPage3;
         private ScottPlot.FormsPlot formsPlot1;
         private DataGridView dataGridView1;
+        private Button btnCalcTest;
+        private DataGridView dataGridView2;
     }
 }

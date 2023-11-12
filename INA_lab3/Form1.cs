@@ -23,7 +23,7 @@ namespace INA_lab3
         }
         internal Random rand = new Random();
 
-        private void BtnCalculate_Click(object sender, EventArgs e)
+        private void btnCalculate_Click(object sender, EventArgs e)
         {
             double a = Convert.ToDouble(textBox_A.Text);
             double b = Convert.ToDouble(textBox_B.Text);
@@ -55,6 +55,10 @@ namespace INA_lab3
             Plot(runStatisticsList);
             ViewData(generation);
         }
+        private void btnCalcTest_Click(object sender, EventArgs e)
+        {
+
+        }
 
         internal void Plot(List<RunStatistics> list)
         {
@@ -80,7 +84,7 @@ namespace INA_lab3
             double maxFxReal = generation.Max(data => data.FxReal);
             foreach (DataGrid data in generation)
             {
-                data.GxReal =  - (data.FxReal - maxFxReal) + d;
+                data.GxReal = -(data.FxReal - maxFxReal) + d;
             }
 
             // Pi
@@ -338,5 +342,7 @@ namespace INA_lab3
             }
             return (new string(s), mutations.ToString());
         }
+
+
     }
 }
