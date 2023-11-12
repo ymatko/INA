@@ -50,12 +50,24 @@ namespace INA_lab3
 
             for (int i = 0; i < t; i++)
             {
-                runStatisticsList.Add(Calculate(d, l, pk, pm, n, generation, EliteOn));
+                Calculate(d, l, pk, pm, n, generation, EliteOn);
+                var runStatistics = new RunStatistics
+                {
+                    MinGxReal = generation.Min(data => data.GxReal),
+                    MaxGxReal = generation.Max(data => data.GxReal),
+                    AvgGxReal = generation.Average(data => data.GxReal)
+                };
+                runStatisticsList.Add(runStatistics);
+                NewGeneration(generation, EliteOn);
             }
             Plot(runStatisticsList);
             ViewData(generation);
         }
         private void btnCalcTest_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void Test()
         {
 
         }
@@ -78,7 +90,7 @@ namespace INA_lab3
             formsPlot1.Render();
         }
 
-        private RunStatistics Calculate(double d, int l, double pk, double pm, int n, DataGrid[] generation, bool eliteOn)
+        private void Calculate(double d, int l, double pk, double pm, int n, DataGrid[] generation, bool eliteOn)
         {
             // g(x)
             double maxFxReal = generation.Max(data => data.FxReal);
@@ -237,15 +249,6 @@ namespace INA_lab3
                 data.GetNewFxReal();
             }
 
-            // add to addGridView
-            var runStatistics = new RunStatistics
-            {
-                MinGxReal = generation.Min(data => data.GxReal),
-                MaxGxReal = generation.Max(data => data.GxReal),
-                AvgGxReal = generation.Average(data => data.GxReal)
-            };
-            NewGeneration(generation, eliteOn);
-            return runStatistics;
         }
 
         private void NewGeneration(DataGrid[] generation, bool elite)
