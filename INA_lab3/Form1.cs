@@ -15,11 +15,6 @@ namespace INA_lab3
         internal Form1()
         {
             InitializeComponent();
-            dataGridView1.Columns.Add("N", "N");
-            dataGridView1.Columns.Add("xReal", "xReal");
-            dataGridView1.Columns.Add("xBin", "xBin");
-            dataGridView1.Columns.Add("GxReal", "GxReal");
-            dataGridView1.Columns.Add("Percentage", "Percentage");
         }
         internal Random rand = new Random();
 
@@ -65,11 +60,55 @@ namespace INA_lab3
         }
         private void btnCalcTest_Click(object sender, EventArgs e)
         {
+            double a = Convert.ToDouble(textBox_A.Text);
+            double b = Convert.ToDouble(textBox_B.Text);
+            double d = Convert.ToDouble(comboBox_D.Text);
+            bool EliteOn = checkBox_elite.Checked;
+            List<double> _pk = new List<double>() { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 };
+            List<double> _pm = new List<double>() { 0.001, 0.003, 0.005, 0.007, 0.009, 0.011, 0.013, 0.015, 0.017, 0.02 };
+            List<int> _t = new List<int>() { 50, 100, 150, 200 };
+            List<int> _n = new List<int>() { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200 };
 
-        }
-        private void Test()
-        {
+            List<RunStatisticTest> runStatisticTestList = new List<RunStatisticTest>();
+            foreach (int n in _n)
+            {
+                DataGrid[] generation = new DataGrid[n];
 
+                int l = (int)Math.Floor(Math.Log((b - a) / d, 2) + 1.0);
+
+                foreach (int t in _t)
+                {
+                    foreach (double pk in _pk)
+                    {
+                        foreach (double pm in _pm)
+                        {
+                            for (int i = 0; i < n; i++)
+                            {
+                                var dataGrid = new DataGrid(a, b, i + 1, l, d, pk, pm);
+                                generation[i] = dataGrid;
+                            }
+                            Calculate(d, l, pk, pm, n, generation, EliteOn);
+                            var runStatisticTest = new RunStatisticTest
+                            {
+                                N = n,
+                                T = t,
+                                Pk = pk,
+                                Pm = pm,
+                                Fx = generation.Average(data => data.FxReal)
+                            };
+                            runStatisticTestList.Add(runStatisticTest);
+                        }
+                    }
+
+                }
+            }
+            dataGridView2.Rows.Clear();
+            var top10List = runStatisticTestList.OrderByDescending(x => x.Fx).Take(10).ToList();
+            foreach (RunStatisticTest data in top10List)
+            {
+                data.ViewData(dataGridView2);
+            }
+            dataGridView2.Sort(dataGridView2.Columns["Fx"], ListSortDirection.Descending);
         }
 
         internal void Plot(List<RunStatistics> list)

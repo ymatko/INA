@@ -51,8 +51,20 @@
             formsPlot1 = new ScottPlot.FormsPlot();
             tabPage2 = new TabPage();
             dataGridView1 = new DataGridView();
+            Number = new DataGridViewTextBoxColumn();
+            xReal = new DataGridViewTextBoxColumn();
+            xBin = new DataGridViewTextBoxColumn();
+            GxReal = new DataGridViewTextBoxColumn();
+            Percentage = new DataGridViewTextBoxColumn();
             tabPage3 = new TabPage();
+            panel4 = new Panel();
             dataGridView2 = new DataGridView();
+            N = new DataGridViewTextBoxColumn();
+            Pk = new DataGridViewTextBoxColumn();
+            Pm = new DataGridViewTextBoxColumn();
+            T = new DataGridViewTextBoxColumn();
+            Fx = new DataGridViewTextBoxColumn();
+            panel3 = new Panel();
             btnCalcTest = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -61,7 +73,9 @@
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             tabPage3.SuspendLayout();
+            panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -292,7 +306,11 @@
             // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Number, xReal, xBin, GxReal, Percentage });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(3, 3);
             dataGridView1.Name = "dataGridView1";
@@ -302,10 +320,40 @@
             dataGridView1.Size = new Size(786, 369);
             dataGridView1.TabIndex = 0;
             // 
+            // Number
+            // 
+            Number.HeaderText = "N";
+            Number.Name = "Number";
+            Number.ReadOnly = true;
+            // 
+            // xReal
+            // 
+            xReal.HeaderText = "xReal";
+            xReal.Name = "xReal";
+            xReal.ReadOnly = true;
+            // 
+            // xBin
+            // 
+            xBin.HeaderText = "xBin";
+            xBin.Name = "xBin";
+            xBin.ReadOnly = true;
+            // 
+            // GxReal
+            // 
+            GxReal.HeaderText = "Gxreal";
+            GxReal.Name = "GxReal";
+            GxReal.ReadOnly = true;
+            // 
+            // Percentage
+            // 
+            Percentage.HeaderText = "Percentage";
+            Percentage.Name = "Percentage";
+            Percentage.ReadOnly = true;
+            // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(dataGridView2);
-            tabPage3.Controls.Add(btnCalcTest);
+            tabPage3.Controls.Add(panel4);
+            tabPage3.Controls.Add(panel3);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
             tabPage3.Size = new Size(792, 375);
@@ -313,18 +361,75 @@
             tabPage3.Text = "Tests";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // panel4
+            // 
+            panel4.Controls.Add(dataGridView2);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(0, 0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(717, 375);
+            panel4.TabIndex = 2;
+            // 
             // dataGridView2
             // 
+            dataGridView2.AllowUserToAddRows = false;
+            dataGridView2.AllowUserToDeleteRows = false;
+            dataGridView2.AllowUserToResizeColumns = false;
+            dataGridView2.AllowUserToResizeRows = false;
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(3, 3);
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { N, Pk, Pm, T, Fx });
+            dataGridView2.Dock = DockStyle.Fill;
+            dataGridView2.Location = new Point(0, 0);
             dataGridView2.Name = "dataGridView2";
+            dataGridView2.ReadOnly = true;
+            dataGridView2.RowHeadersVisible = false;
             dataGridView2.RowTemplate.Height = 25;
-            dataGridView2.Size = new Size(705, 369);
-            dataGridView2.TabIndex = 1;
+            dataGridView2.Size = new Size(717, 375);
+            dataGridView2.TabIndex = 0;
+            // 
+            // N
+            // 
+            N.HeaderText = "N";
+            N.Name = "N";
+            N.ReadOnly = true;
+            // 
+            // Pk
+            // 
+            Pk.HeaderText = "Pk";
+            Pk.Name = "Pk";
+            Pk.ReadOnly = true;
+            // 
+            // Pm
+            // 
+            Pm.HeaderText = "Pm";
+            Pm.Name = "Pm";
+            Pm.ReadOnly = true;
+            // 
+            // T
+            // 
+            T.HeaderText = "T";
+            T.Name = "T";
+            T.ReadOnly = true;
+            // 
+            // Fx
+            // 
+            Fx.HeaderText = "Fx";
+            Fx.Name = "Fx";
+            Fx.ReadOnly = true;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(btnCalcTest);
+            panel3.Dock = DockStyle.Right;
+            panel3.Location = new Point(717, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(75, 375);
+            panel3.TabIndex = 1;
             // 
             // btnCalcTest
             // 
-            btnCalcTest.Location = new Point(714, 3);
+            btnCalcTest.Location = new Point(1, 0);
             btnCalcTest.Name = "btnCalcTest";
             btnCalcTest.Size = new Size(75, 23);
             btnCalcTest.TabIndex = 0;
@@ -349,7 +454,9 @@
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             tabPage3.ResumeLayout(false);
+            panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -381,5 +488,17 @@
         private DataGridView dataGridView1;
         private Button btnCalcTest;
         private DataGridView dataGridView2;
+        private Panel panel4;
+        private Panel panel3;
+        private DataGridViewTextBoxColumn N;
+        private DataGridViewTextBoxColumn Pk;
+        private DataGridViewTextBoxColumn Pm;
+        private DataGridViewTextBoxColumn T;
+        private DataGridViewTextBoxColumn Fx;
+        private DataGridViewTextBoxColumn Number;
+        private DataGridViewTextBoxColumn xReal;
+        private DataGridViewTextBoxColumn xBin;
+        private DataGridViewTextBoxColumn GxReal;
+        private DataGridViewTextBoxColumn Percentage;
     }
 }
