@@ -337,21 +337,42 @@ namespace INA_lab3
 
             var sum = generation.Sum(data => data.GxReal);
 
+            // Dictionary to store the cumulative GxReal value for each unique GxReal value
+            Dictionary<double, double> cumulativeGxRealValues = new Dictionary<double, double>();
+
             for (int i = 0; i < generation.Length; i++)
             {
                 double percentage = (generation[i].GxReal / sum) * 100.0;
-                if (true)
+
+                if (cumulativeGxRealValues.ContainsKey(generation[i].GxReal))
                 {
-                    dataGridView1.Rows.Add(
-                        i + 1,                    // N
-                        generation[i].xReal,           // XReal
-                        generation[i].AfterMutation,   // XBin
-                        generation[i].GxReal,          // GxReal
-                        percentage               // Percentage
-                    );
+                    // If the GxReal value is already in the dictionary, add the GxReal value
+                    cumulativeGxRealValues[generation[i].GxReal] += generation[i].GxReal;
+                }
+                else
+                {
+                    // If the GxReal value is not in the dictionary, add it with the current GxReal value
+                    cumulativeGxRealValues.Add(generation[i].GxReal, generation[i].GxReal);
                 }
             }
-            dataGridView1.Sort(dataGridView1.Columns["Percentage"], ListSortDirection.Descending);
+
+            // Add rows to the DataGridView using the cumulative GxReal values
+            foreach (var kvp in cumulativeGxRealValues)
+            {
+                double key = kvp.Key;
+                double cumulativeGxReal = kvp.Value;
+
+                dataGridView1.Rows.Add(
+                    dataGridView1.Rows.Count + 1,  // Sequential number
+                    generation.First(data => data.GxReal == key).xReal,          // XReal
+                    generation.First(data => data.GxReal == key).AfterMutation,  // XBin
+                    cumulativeGxReal,  // Cumulative GxReal
+                    (cumulativeGxReal / sum) * 100.0  // Cumulative Percentage
+                );
+            }
+
+
+                dataGridView1.Sort(dataGridView1.Columns["Percentage"], ListSortDirection.Descending);
         }
 
         internal static (string child1, string child2, int cuttingPoint) Crossover(string parent1, string parent2, int l)
