@@ -63,9 +63,9 @@ namespace INA_lab3
             double a = Convert.ToDouble(textBox_A.Text);
             double b = Convert.ToDouble(textBox_B.Text);
             double d = Convert.ToDouble(comboBox_D.Text);
-            List<double> _pk = new List<double>() { 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95 };
-            List<double> _pm = new List<double>() { 0.001, 0.003, 0.005, 0.007, 0.009, 0.011, 0.013, 0.015, 0.017, 0.02 };
-            List<int> _t = new List<int>() { 50, 100, 150, 200, 250, 300 };
+            List<double> _pk = new List<double>() { 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9, 0.925, 0.95 };
+            List<double> _pm = new List<double>() { 0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.01, 0.011, 0.012, 0.013, 0.014, 0.015, 0.016, 0.017, 0.018, 0.019, 0.02 };
+            List<int> _t = new List<int>() { 50, 60, 70, 75, 80, 90, 100, 110, 120, 125, 130, 140, 150, 160, 170, 175, 180, 190, 200, 210, 220, 225, 230, 240, 250, 260, 270, 275, 280, 290, 300 };
             List<int> _n = new List<int>() { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300 };
 
             List<RunStatisticTest> runStatisticTestList = new List<RunStatisticTest>();
@@ -347,7 +347,7 @@ namespace INA_lab3
                         generation[i].xReal,           // XReal
                         generation[i].AfterMutation,   // XBin
                         generation[i].GxReal,          // GxReal
-                        percentage                 // Percentage
+                        percentage               // Percentage
                     );
                 }
             }

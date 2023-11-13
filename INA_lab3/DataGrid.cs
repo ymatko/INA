@@ -73,7 +73,7 @@ namespace INA_lab3
         }
         internal void GetNewReal()
         {
-            double xInt_xBin = Convert.ToInt64(AfterMutation, 2);
+            long xInt_xBin = Convert.ToInt64(AfterMutation, 2);
             NewxReal = ((_b - _a) * xInt_xBin) / (Math.Pow(2.0, _l) - 1.0) + _a;
         }
 
