@@ -45,7 +45,7 @@ namespace INA_lab3
 
             for (int i = 0; i < t; i++)
             {
-                Calculate(d, l, pk, pm, n, generation, EliteOn);
+                Calculate(d, l, pk, pm, n, generation);
                 var runStatistics = new RunStatistics
                 {
                     MinGxReal = generation.Min(data => data.GxReal),
@@ -63,11 +63,10 @@ namespace INA_lab3
             double a = Convert.ToDouble(textBox_A.Text);
             double b = Convert.ToDouble(textBox_B.Text);
             double d = Convert.ToDouble(comboBox_D.Text);
-            bool EliteOn = checkBox_elite.Checked;
-            List<double> _pk = new List<double>() { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 };
+            List<double> _pk = new List<double>() { 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95 };
             List<double> _pm = new List<double>() { 0.001, 0.003, 0.005, 0.007, 0.009, 0.011, 0.013, 0.015, 0.017, 0.02 };
-            List<int> _t = new List<int>() { 50, 100, 150, 200 };
-            List<int> _n = new List<int>() { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200 };
+            List<int> _t = new List<int>() { 50, 100, 150, 200, 250, 300 };
+            List<int> _n = new List<int>() { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300 };
 
             List<RunStatisticTest> runStatisticTestList = new List<RunStatisticTest>();
             foreach (int n in _n)
@@ -87,7 +86,7 @@ namespace INA_lab3
                                 var dataGrid = new DataGrid(a, b, i + 1, l, d, pk, pm);
                                 generation[i] = dataGrid;
                             }
-                            Calculate(d, l, pk, pm, n, generation, EliteOn);
+                            Calculate(d, l, pk, pm, n, generation);
                             var runStatisticTest = new RunStatisticTest
                             {
                                 N = n,
@@ -129,7 +128,7 @@ namespace INA_lab3
             formsPlot1.Render();
         }
 
-        private void Calculate(double d, int l, double pk, double pm, int n, DataGrid[] generation, bool eliteOn)
+        private void Calculate(double d, int l, double pk, double pm, int n, DataGrid[] generation)
         {
             // g(x)
             double maxFxReal = generation.Max(data => data.FxReal);
