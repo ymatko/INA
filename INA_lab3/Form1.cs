@@ -63,6 +63,7 @@ namespace INA_lab3
             double a = Convert.ToDouble(textBox_A.Text);
             double b = Convert.ToDouble(textBox_B.Text);
             double d = Convert.ToDouble(comboBox_D.Text);
+            bool allTests = cbTests.Checked;
             List<double> _pk = new List<double>() { 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9, 0.925, 0.95 };
             List<double> _pm = new List<double>() { 0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.01, 0.011, 0.012, 0.013, 0.014, 0.015, 0.016, 0.017, 0.018, 0.019, 0.02 };
             List<int> _t = new List<int>() { 50, 60, 70, 75, 80, 90, 100, 110, 120, 125, 130, 140, 150, 160, 170, 175, 180, 190, 200, 210, 220, 225, 230, 240, 250, 260, 270, 275, 280, 290, 300 };
@@ -102,8 +103,12 @@ namespace INA_lab3
                 }
             }
             dataGridView2.Rows.Clear();
-            var top10List = runStatisticTestList.OrderByDescending(x => x.Fx).Take(10).ToList();
-            foreach (RunStatisticTest data in top10List)
+            List<RunStatisticTest> listOfTests;
+            if (allTests)
+                listOfTests = runStatisticTestList;
+            else
+                listOfTests = runStatisticTestList.OrderByDescending(x => x.Fx).Take(10).ToList();
+            foreach (RunStatisticTest data in listOfTests)
             {
                 data.ViewData(dataGridView2);
             }
@@ -337,7 +342,6 @@ namespace INA_lab3
 
             var sum = generation.Sum(data => data.GxReal);
 
-            // Dictionary to store the cumulative GxReal value for each unique GxReal value
             Dictionary<double, double> cumulativeGxRealValues = new Dictionary<double, double>();
 
             for (int i = 0; i < generation.Length; i++)
@@ -346,17 +350,14 @@ namespace INA_lab3
 
                 if (cumulativeGxRealValues.ContainsKey(generation[i].GxReal))
                 {
-                    // If the GxReal value is already in the dictionary, add the GxReal value
                     cumulativeGxRealValues[generation[i].GxReal] += generation[i].GxReal;
                 }
                 else
                 {
-                    // If the GxReal value is not in the dictionary, add it with the current GxReal value
                     cumulativeGxRealValues.Add(generation[i].GxReal, generation[i].GxReal);
                 }
             }
 
-            // Add rows to the DataGridView using the cumulative GxReal values
             foreach (var kvp in cumulativeGxRealValues)
             {
                 double key = kvp.Key;
@@ -372,7 +373,7 @@ namespace INA_lab3
             }
 
 
-                dataGridView1.Sort(dataGridView1.Columns["Percentage"], ListSortDirection.Descending);
+            dataGridView1.Sort(dataGridView1.Columns["Percentage"], ListSortDirection.Descending);
         }
 
         internal static (string child1, string child2, int cuttingPoint) Crossover(string parent1, string parent2, int l)
