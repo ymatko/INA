@@ -1,4 +1,4 @@
-# Algorytm genetyczny
+# Genetic Algorithm
 
 ![](https://img.shields.io/badge/.NET%20-7.0-blue)
 ![](https://img.shields.io/badge/C%23-10-green)
