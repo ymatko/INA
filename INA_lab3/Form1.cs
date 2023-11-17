@@ -58,8 +58,10 @@ namespace INA_lab3
             Plot(runStatisticsList);
             ViewData(generation);
         }
-        private void btnCalcTest_Click(object sender, EventArgs e)
+        private async void btnCalcTest_Click(object sender, EventArgs e)
         {
+            btnCalcTest.Enabled = false;
+            cbTests.Enabled = false;
             double a = Convert.ToDouble(textBox_A.Text);
             double b = Convert.ToDouble(textBox_B.Text);
             double d = Convert.ToDouble(comboBox_D.Text);
@@ -70,38 +72,40 @@ namespace INA_lab3
             List<int> _n = new List<int>() { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300 };
 
             List<RunStatisticTest> runStatisticTestList = new List<RunStatisticTest>();
-            foreach (int n in _n)
+            await Task.Run(() => 
             {
-                DataGrid[] generation = new DataGrid[n];
-
-                int l = (int)Math.Floor(Math.Log((b - a) / d, 2) + 1.0);
-
-                foreach (int t in _t)
+                foreach (int n in _n)
                 {
-                    foreach (double pk in _pk)
+                    DataGrid[] generation = new DataGrid[n];
+
+                    int l = (int)Math.Floor(Math.Log((b - a) / d, 2) + 1.0);
+
+                    foreach (int t in _t)
                     {
-                        foreach (double pm in _pm)
+                        foreach (double pk in _pk)
                         {
-                            for (int i = 0; i < n; i++)
+                            foreach (double pm in _pm)
                             {
-                                var dataGrid = new DataGrid(a, b, i + 1, l, d, pk, pm);
-                                generation[i] = dataGrid;
+                                for (int i = 0; i < n; i++)
+                                {
+                                    var dataGrid = new DataGrid(a, b, i + 1, l, d, pk, pm);
+                                    generation[i] = dataGrid;
+                                }
+                                Calculate(d, l, pk, pm, n, generation);
+                                var runStatisticTest = new RunStatisticTest
+                                {
+                                    N = n,
+                                    T = t,
+                                    Pk = pk,
+                                    Pm = pm,
+                                    Fx = generation.Average(data => data.FxReal)
+                                };
+                                runStatisticTestList.Add(runStatisticTest);
                             }
-                            Calculate(d, l, pk, pm, n, generation);
-                            var runStatisticTest = new RunStatisticTest
-                            {
-                                N = n,
-                                T = t,
-                                Pk = pk,
-                                Pm = pm,
-                                Fx = generation.Average(data => data.FxReal)
-                            };
-                            runStatisticTestList.Add(runStatisticTest);
                         }
                     }
-
                 }
-            }
+            });
             dataGridView2.Rows.Clear();
             List<RunStatisticTest> listOfTests;
             if (allTests)
@@ -113,6 +117,8 @@ namespace INA_lab3
                 data.ViewData(dataGridView2);
             }
             dataGridView2.Sort(dataGridView2.Columns["Fx"], ListSortDirection.Descending);
+            btnCalcTest.Enabled = true;
+            cbTests.Enabled = true;
         }
 
         internal void Plot(List<RunStatistics> list)
