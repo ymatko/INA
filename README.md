@@ -41,9 +41,15 @@ The program also enables testing and selecting optimal algorithm parameters to a
 
 ---
 
+## Gallery
+
+<img align="center" src="Image/app_1.png"/>
+<img align="center" src="Image/app_2.png"/>
+<img align="center" src="Image/app_3.png"/>
+
 
 ## License
 
->You can check out the full license [here]().
+>You can check out the full license [here](https://github.com/ymatko/INA/blob/main/LICENSE.txt).
 
 This project is licensed under the terms of the MIT license.
