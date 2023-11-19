@@ -42,10 +42,14 @@
             panel2 = new Panel();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            dataGridView1 = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
             tabPage2 = new TabPage();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -74,7 +78,7 @@
             btnTests.TabIndex = 4;
             btnTests.Text = "Tests";
             btnTests.UseVisualStyleBackColor = true;
-            btnTests.Click += button2_Click;
+            btnTests.Click += btnTests_Click;
             // 
             // btnCalc
             // 
@@ -84,6 +88,7 @@
             btnCalc.TabIndex = 3;
             btnCalc.Text = "Calculate";
             btnCalc.UseVisualStyleBackColor = true;
+            btnCalc.Click += btnCalc_Click;
             // 
             // label4
             // 
@@ -181,6 +186,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(dataGridView1);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
@@ -188,6 +194,22 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1 });
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(3, 3);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(786, 353);
+            dataGridView1.TabIndex = 0;
+            // 
+            // Column1
+            // 
+            Column1.HeaderText = "Column1";
+            Column1.Name = "Column1";
             // 
             // tabPage2
             // 
@@ -212,6 +234,8 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -232,5 +256,7 @@
         private TabControl tabControl1;
         private TabPage tabPage1;
         private TabPage tabPage2;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn Column1;
     }
 }
