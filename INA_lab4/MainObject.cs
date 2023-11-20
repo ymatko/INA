@@ -15,12 +15,12 @@ namespace INA_lab4
         private double _xReal { get; set; }
         private double _FxReal { get; set; }
         private int _accuracy { get; set; }
+        internal string xBin { get; set; }
 
-        internal MainObject(double a, double b, double d, double t)
+        internal MainObject(double a, double b, double d)
         {
             _a = a;
             _b = b;
-            _t = t;
             switch (d)
             {
                 case 0.1:
@@ -36,6 +36,20 @@ namespace INA_lab4
                     _accuracy = 4;
                     break;
             }
+        }
+        internal List<string> GetDescendants()
+        {
+            var result = new List<string>();
+            for(int i = 0; i < xBin.Length; i++)
+            {
+                var newxBin = new StringBuilder(xBin);
+                if (newxBin[i] == '1')
+                    newxBin[i] = '0';
+                else
+                    newxBin[i] = '1';
+                result.Add(newxBin.ToString());
+            }
+            return result;
         }
     }
 }
