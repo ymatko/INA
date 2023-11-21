@@ -43,7 +43,9 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             dataGridView1 = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
+            xReal = new DataGridViewTextBoxColumn();
+            xBin = new DataGridViewTextBoxColumn();
+            FxReal = new DataGridViewTextBoxColumn();
             tabPage2 = new TabPage();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -197,19 +199,38 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1 });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { xReal, xBin, FxReal });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(3, 3);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(786, 353);
             dataGridView1.TabIndex = 0;
             // 
-            // Column1
+            // xReal
             // 
-            Column1.HeaderText = "Column1";
-            Column1.Name = "Column1";
+            xReal.HeaderText = "xReal";
+            xReal.Name = "xReal";
+            xReal.ReadOnly = true;
+            // 
+            // xBin
+            // 
+            xBin.HeaderText = "xBin";
+            xBin.Name = "xBin";
+            xBin.ReadOnly = true;
+            // 
+            // FxReal
+            // 
+            FxReal.HeaderText = "FxReal";
+            FxReal.Name = "FxReal";
+            FxReal.ReadOnly = true;
             // 
             // tabPage2
             // 
@@ -257,6 +278,8 @@
         private TabPage tabPage1;
         private TabPage tabPage2;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn xReal;
+        private DataGridViewTextBoxColumn xBin;
+        private DataGridViewTextBoxColumn FxReal;
     }
 }
