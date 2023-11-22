@@ -12,8 +12,8 @@ namespace INA_lab4
         private double _b { get; set; }
         private double _d { get; set; }
         private double _t { get; set; }
-        private double _xReal { get; set; }
-        private double _FxReal { get; set; }
+        internal double _xReal { get; set; }
+        internal double _FxReal { get; set; }
         private int _accuracy { get; set; }
         internal string _xBin { get; set; }
 
@@ -36,6 +36,10 @@ namespace INA_lab4
                     _accuracy = 4;
                     break;
             }
+        }
+        internal MainObject()
+        {
+
         }
 
         

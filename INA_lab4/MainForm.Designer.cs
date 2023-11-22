@@ -41,15 +41,23 @@
             tbA = new TextBox();
             panel2 = new Panel();
             tabControl1 = new TabControl();
+            tabPage2 = new TabPage();
+            label7 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            tbBestFxReal = new TextBox();
+            tbBestXbin = new TextBox();
+            tbBestXreal = new TextBox();
             tabPage1 = new TabPage();
             dataGridView1 = new DataGridView();
             xReal = new DataGridViewTextBoxColumn();
             xBin = new DataGridViewTextBoxColumn();
             FxReal = new DataGridViewTextBoxColumn();
-            tabPage2 = new TabPage();
+            tabPage3 = new TabPage();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             tabControl1.SuspendLayout();
+            tabPage2.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -177,14 +185,82 @@
             // 
             // tabControl1
             // 
-            tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage3);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(800, 387);
             tabControl1.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(label7);
+            tabPage2.Controls.Add(label6);
+            tabPage2.Controls.Add(label5);
+            tabPage2.Controls.Add(tbBestFxReal);
+            tabPage2.Controls.Add(tbBestXbin);
+            tabPage2.Controls.Add(tbBestXreal);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(792, 359);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Best of the population";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.Location = new Point(429, 26);
+            label7.Name = "label7";
+            label7.Size = new Size(62, 19);
+            label7.TabIndex = 1;
+            label7.Text = "F (X real)";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label6.Location = new Point(223, 26);
+            label6.Name = "label6";
+            label6.Size = new Size(40, 19);
+            label6.TabIndex = 1;
+            label6.Text = "X Bin";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Location = new Point(20, 26);
+            label5.Name = "label5";
+            label5.Size = new Size(42, 17);
+            label5.TabIndex = 1;
+            label5.Text = "X real";
+            // 
+            // tbBestFxReal
+            // 
+            tbBestFxReal.Location = new Point(429, 47);
+            tbBestFxReal.Name = "tbBestFxReal";
+            tbBestFxReal.Size = new Size(122, 23);
+            tbBestFxReal.TabIndex = 0;
+            // 
+            // tbBestXbin
+            // 
+            tbBestXbin.Location = new Point(223, 47);
+            tbBestXbin.Name = "tbBestXbin";
+            tbBestXbin.Size = new Size(122, 23);
+            tbBestXbin.TabIndex = 0;
+            // 
+            // tbBestXreal
+            // 
+            tbBestXreal.Location = new Point(20, 47);
+            tbBestXreal.Name = "tbBestXreal";
+            tbBestXreal.Size = new Size(122, 23);
+            tbBestXreal.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -194,7 +270,7 @@
             tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(792, 359);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
+            tabPage1.Text = "Table";
             tabPage1.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
@@ -232,15 +308,15 @@
             FxReal.Name = "FxReal";
             FxReal.ReadOnly = true;
             // 
-            // tabPage2
+            // tabPage3
             // 
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(792, 359);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(792, 359);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "tabPage3";
+            tabPage3.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -255,6 +331,8 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
             tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
@@ -281,5 +359,12 @@
         private DataGridViewTextBoxColumn xReal;
         private DataGridViewTextBoxColumn xBin;
         private DataGridViewTextBoxColumn FxReal;
+        private TabPage tabPage3;
+        private Label label7;
+        private Label label6;
+        private Label label5;
+        private TextBox tbBestFxReal;
+        private TextBox tbBestXbin;
+        private TextBox tbBestXreal;
     }
 }

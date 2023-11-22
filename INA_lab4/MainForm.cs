@@ -21,7 +21,16 @@ namespace INA_lab4
             double b = Convert.ToDouble(tbB.Text);
             double d = Convert.ToDouble(cbD.Text);
             var newList = Calculate(t, a, b, d);
-            SetPlot(newList, a, b, d);
+            dataGridView1.Rows.Clear();
+            SetTable(newList, a, b, d);
+            SetBest(newList);
+        }
+
+        private void SetBest(List<string> newList)
+        {
+            tbBestXreal.Text = dataGridView1.Rows[0].Cells[0].Value.ToString();
+            tbBestXbin.Text = dataGridView1.Rows[0].Cells[1].Value.ToString();
+            tbBestFxReal.Text = dataGridView1.Rows[0].Cells[2].Value.ToString();
         }
 
         private List<string> Calculate(int t, double a, double b, double d)
@@ -45,7 +54,7 @@ namespace INA_lab4
             return newObj;
         }
 
-        private void SetPlot(List<string> list, double a, double b, double d)
+        private void SetTable(List<string> list, double a, double b, double d)
         {
             foreach (string obj in list)
             {
