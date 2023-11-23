@@ -6,6 +6,10 @@ namespace INA_lab4
         {
             InitializeComponent();
         }
+        private int _t { get; set; }
+        private double _a { get; set; }
+        private double _b { get; set; }
+        private double _d { get; set; }
 
         private void btnTests_Click(object sender, EventArgs e)
         {
@@ -16,14 +20,15 @@ namespace INA_lab4
 
         private void btnCalc_Click(object sender, EventArgs e)
         {
-            int t = Convert.ToInt32(tbT.Text);
-            double a = Convert.ToDouble(tbA.Text);
-            double b = Convert.ToDouble(tbB.Text);
-            double d = Convert.ToDouble(cbD.Text);
-            var newList = Calculate(t, a, b, d);
+            _t = Convert.ToInt32(tbT.Text);
+            _a = Convert.ToDouble(tbA.Text);
+            _b = Convert.ToDouble(tbB.Text);
+            _d = Convert.ToDouble(cbD.Text);
+            var newList = Calculate();
             dataGridView1.Rows.Clear();
-            SetTable(newList, a, b, d);
+            SetTable(newList);
             SetBest(newList);
+            //UpdatePlotView(newList);
         }
 
         private void SetBest(List<string> newList)
@@ -33,41 +38,63 @@ namespace INA_lab4
             tbBestFxReal.Text = dataGridView1.Rows[0].Cells[2].Value.ToString();
         }
 
-        private List<string> Calculate(int t, double a, double b, double d)
+        private List<string> Calculate()
         {
             List<string> newObj = new List<string>();
-            for (int i = 0; i < t; i++)
+            formsPlot1.Plot.Clear();
+            for (int i = 0; i < _t; i++)
             {
-                MainObject obj = new MainObject(a, b, d);
-                obj._xBin = RandBin.GetValue(a, b, d);
+                MainObject obj = new MainObject(_a, _b, _d);
+                obj._xBin = RandBin.GetValue(_a, _b, _d);
                 var listOfobj = obj.GetDescendants();
-                bool local = false;
-                foreach (string str in listOfobj)
+                for (int j = 0; j < listOfobj.Count; j++)
                 {
-                    if (GetFx(GetxReal(obj._xBin, a, b, d)) < GetFx(GetxReal(str, a, b, d)))
+                    
+                    string str = listOfobj[j];
+                    if (GetFx(GetxReal(obj._xBin)) < GetFx(GetxReal(str)))
                     {
                         obj._xBin = str;
+                        //double s = GetFx(GetxReal(str));
+                        formsPlot1.Plot.AddPoint(i, j);
                     }
                 }
                 newObj.Add(obj._xBin);
             }
+            formsPlot1.Plot.Legend();
+            formsPlot1.Plot.AxisAuto();
+            formsPlot1.Render();
+
             return newObj;
         }
 
-        private void SetTable(List<string> list, double a, double b, double d)
+        private void UpdatePlotView(List<string> list)
+        {
+            int runCount = list.Count;
+            double[] runIndices = Enumerable.Range(1, runCount).Select(i => (double)i).ToArray();
+            double[] values = list.Select(i => GetFx(GetxReal(i))).ToArray();
+
+            formsPlot1.Plot.Clear();
+            formsPlot1.Plot.AddScatter(runIndices, values, label: "Max");
+
+            formsPlot1.Plot.Legend();
+            formsPlot1.Plot.AxisAuto();
+            formsPlot1.Render();
+        }
+
+        private void SetTable(List<string> list)
         {
             foreach (string obj in list)
             {
-                dataGridView1.Rows.Add(GetxReal(obj, a, b, d), obj, GetFx(GetxReal(obj, a, b, d)));
+                dataGridView1.Rows.Add(GetxReal(obj), obj, GetFx(GetxReal(obj)));
             }
             dataGridView1.Sort(dataGridView1.Columns["FxReal"], System.ComponentModel.ListSortDirection.Descending);
         }
 
-        internal double GetxReal(string xBin, double a, double b, double d)
+        internal double GetxReal(string xBin)
         {
-            int l = (int)Math.Floor(Math.Log((b - a) / d, 2) + 1.0);
+            int l = (int)Math.Floor(Math.Log((_b - _a) / _d, 2) + 1.0);
             long xInt_xBin = Convert.ToInt64(xBin, 2);
-            return ((b - a) * xInt_xBin) / (Math.Pow(2.0, l) - 1.0) + a;
+            return ((_b - _a) * xInt_xBin) / (Math.Pow(2.0, l) - 1.0) + _a;
         }
 
         internal double GetFx(double xReal)

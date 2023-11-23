@@ -54,12 +54,14 @@
             xBin = new DataGridViewTextBoxColumn();
             FxReal = new DataGridViewTextBoxColumn();
             tabPage3 = new TabPage();
+            formsPlot1 = new ScottPlot.FormsPlot();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage2.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            tabPage3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -310,13 +312,23 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(formsPlot1);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
             tabPage3.Size = new Size(792, 359);
             tabPage3.TabIndex = 2;
-            tabPage3.Text = "tabPage3";
+            tabPage3.Text = "Graph";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // formsPlot1
+            // 
+            formsPlot1.Dock = DockStyle.Fill;
+            formsPlot1.Location = new Point(3, 3);
+            formsPlot1.Margin = new Padding(4, 3, 4, 3);
+            formsPlot1.Name = "formsPlot1";
+            formsPlot1.Size = new Size(786, 353);
+            formsPlot1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -335,6 +347,7 @@
             tabPage2.PerformLayout();
             tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            tabPage3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -366,5 +379,6 @@
         private TextBox tbBestFxReal;
         private TextBox tbBestXbin;
         private TextBox tbBestXreal;
+        private ScottPlot.FormsPlot formsPlot1;
     }
 }
