@@ -28,7 +28,6 @@ namespace INA_lab4
             dataGridView1.Rows.Clear();
             SetTable(newList);
             SetBest(newList);
-            //UpdatePlotView(newList);
         }
 
         private void SetBest(List<string> newList)
@@ -54,31 +53,12 @@ namespace INA_lab4
                     if (GetFx(GetxReal(obj._xBin)) < GetFx(GetxReal(str)))
                     {
                         obj._xBin = str;
-                        //double s = GetFx(GetxReal(str));
-                        formsPlot1.Plot.AddPoint(i, j);
                     }
                 }
                 newObj.Add(obj._xBin);
             }
-            formsPlot1.Plot.Legend();
-            formsPlot1.Plot.AxisAuto();
-            formsPlot1.Render();
 
             return newObj;
-        }
-
-        private void UpdatePlotView(List<string> list)
-        {
-            int runCount = list.Count;
-            double[] runIndices = Enumerable.Range(1, runCount).Select(i => (double)i).ToArray();
-            double[] values = list.Select(i => GetFx(GetxReal(i))).ToArray();
-
-            formsPlot1.Plot.Clear();
-            formsPlot1.Plot.AddScatter(runIndices, values, label: "Max");
-
-            formsPlot1.Plot.Legend();
-            formsPlot1.Plot.AxisAuto();
-            formsPlot1.Render();
         }
 
         private void SetTable(List<string> list)
