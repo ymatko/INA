@@ -46,18 +46,23 @@ namespace INA_lab4
                 MainObject obj = new MainObject(_a, _b, _d);
                 obj._xBin = RandBin.GetValue(_a, _b, _d);
                 var listOfobj = obj.GetDescendants();
+                double[] allXbin = new double[listOfobj.Count];
                 for (int j = 0; j < listOfobj.Count; j++)
                 {
-                    
                     string str = listOfobj[j];
                     if (GetFx(GetxReal(obj._xBin)) < GetFx(GetxReal(str)))
                     {
                         obj._xBin = str;
                     }
+                    //formsPlot1.Plot.AddPoint(i, GetFx(GetxReal(obj._xBin)));
+                    allXbin[j] = GetFx(GetxReal(obj._xBin));
                 }
+                formsPlot1.Plot.AddLine(i, allXbin.Min(), i, allXbin.Max());
                 newObj.Add(obj._xBin);
-            }
+                //formsPlot1.Plot.AddPoint(i, GetFx(GetxReal(obj._xBin)));
 
+            }
+            formsPlot1.Render();
             return newObj;
         }
 
