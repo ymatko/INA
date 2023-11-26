@@ -83,10 +83,26 @@ namespace INA_lab4
 
         private void SetTable(List<string> list)
         {
+            string filePath = "output_table.txt";
+
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                Console.SetOut(sw);
+
+                Console.WriteLine("xReal\t\t xBin\t\t FxReal");
+                foreach (string obj in list)
+                {
+                    Console.WriteLine($"{GetxReal(obj)}\t\t {obj}\t\t {GetFx(GetxReal(obj))}");
+                }
+
+                Console.SetOut(Console.Out);
+            }
+
             foreach (string obj in list)
             {
                 dataGridView1.Rows.Add(GetxReal(obj), obj, GetFx(GetxReal(obj)));
             }
+
             dataGridView1.Sort(dataGridView1.Columns["FxReal"], System.ComponentModel.ListSortDirection.Descending);
         }
 
