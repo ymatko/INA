@@ -12,9 +12,12 @@ namespace INA_lab4
 {
     public partial class TestForm : Form
     {
-        public TestForm()
+        public TestForm(string xReal, string xBin, string FxReal)
         {
             InitializeComponent();
+            tbBestXreal.Text = xReal;
+            tbBestXbin.Text = xBin;
+            tbBestFxReal.Text = FxReal;
         }
     }
 }

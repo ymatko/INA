@@ -5,6 +5,7 @@ namespace INA_lab4
         public MainForm()
         {
             InitializeComponent();
+            btnTests.Enabled = false;
         }
         private int _t { get; set; }
         private double _a { get; set; }
@@ -13,13 +14,14 @@ namespace INA_lab4
 
         private void btnTests_Click(object sender, EventArgs e)
         {
-            var form = new TestForm();
+            var form = new TestForm(tbBestXreal.Text, tbBestXbin.Text, tbBestFxReal.Text);
             btnTests.Enabled = false;
             form.Show();
         }
 
         private void btnCalc_Click(object sender, EventArgs e)
         {
+            btnTests.Enabled = true;
             _t = Convert.ToInt32(tbT.Text);
             _a = Convert.ToDouble(tbA.Text);
             _b = Convert.ToDouble(tbB.Text);
