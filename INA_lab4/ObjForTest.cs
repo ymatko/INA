@@ -9,7 +9,7 @@ namespace INA_lab4
     internal class ObjForTest
     {
         internal int Distributor { get; set; }
-        internal int T { get; set; }
+        internal int CountOfT { get; set; }
         internal double Percent { get; set; }
         private double _a { get; set; }
         private double _b { get; set; }

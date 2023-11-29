@@ -37,6 +37,11 @@
             tbBestXreal = new TextBox();
             panel2 = new Panel();
             dataGridView1 = new DataGridView();
+            T = new DataGridViewTextBoxColumn();
+            Result = new DataGridViewTextBoxColumn();
+            Q = new DataGridViewTextBoxColumn();
+            Procent = new DataGridViewTextBoxColumn();
+            button1 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -44,6 +49,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(label5);
@@ -122,7 +128,9 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { T, Result, Q, Procent });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
@@ -131,6 +139,41 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(800, 385);
             dataGridView1.TabIndex = 0;
+            // 
+            // T
+            // 
+            T.HeaderText = "T";
+            T.Name = "T";
+            T.ReadOnly = true;
+            // 
+            // Result
+            // 
+            Result.HeaderText = "Result";
+            Result.Name = "Result";
+            Result.ReadOnly = true;
+            // 
+            // Q
+            // 
+            Q.HeaderText = "Q";
+            Q.Name = "Q";
+            Q.ReadOnly = true;
+            // 
+            // Procent
+            // 
+            Procent.HeaderText = "Procent";
+            Procent.Name = "Procent";
+            Procent.ReadOnly = true;
+            // 
+            // button1
+            // 
+            button1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.Location = new Point(700, 18);
+            button1.Name = "button1";
+            button1.Size = new Size(88, 29);
+            button1.TabIndex = 8;
+            button1.Text = "Test";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // TestForm
             // 
@@ -159,5 +202,10 @@
         private TextBox tbBestXbin;
         private TextBox tbBestXreal;
         private DataGridView dataGridView1;
+        private Button button1;
+        private DataGridViewTextBoxColumn T;
+        private DataGridViewTextBoxColumn Result;
+        private DataGridViewTextBoxColumn Q;
+        private DataGridViewTextBoxColumn Procent;
     }
 }

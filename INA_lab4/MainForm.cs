@@ -14,7 +14,7 @@ namespace INA_lab4
 
         private void btnTests_Click(object sender, EventArgs e)
         {
-            var form = new TestForm(tbBestXreal.Text, tbBestXbin.Text, tbBestFxReal.Text);
+            var form = new TestForm(tbBestXreal.Text, tbBestXbin.Text, tbBestFxReal.Text, _a, _b, _d);
             btnTests.Enabled = false;
             form.Show();
         }
