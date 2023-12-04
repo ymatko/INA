@@ -47,14 +47,14 @@
             textBox_A = new TextBox();
             label1 = new Label();
             panel2 = new Panel();
-            panel3 = new Panel();
-            panel4 = new Panel();
-            label9 = new Label();
-            label10 = new Label();
+            textBox_resFx = new TextBox();
             textBox_resX = new TextBox();
             label11 = new Label();
-            textBox_resFx = new TextBox();
+            label10 = new Label();
+            label9 = new Label();
+            panel3 = new Panel();
             formsPlot1 = new ScottPlot.FormsPlot();
+            panel4 = new Panel();
             formsPlot2 = new ScottPlot.FormsPlot();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -96,6 +96,7 @@
             button1.TabIndex = 3;
             button1.Text = "Calculate";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // cbD
             // 
@@ -256,43 +257,13 @@
             panel2.Size = new Size(800, 50);
             panel2.TabIndex = 1;
             // 
-            // panel3
+            // textBox_resFx
             // 
-            panel3.Controls.Add(formsPlot1);
-            panel3.Dock = DockStyle.Left;
-            panel3.Location = new Point(0, 100);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(400, 350);
-            panel3.TabIndex = 2;
-            // 
-            // panel4
-            // 
-            panel4.Controls.Add(formsPlot2);
-            panel4.Dock = DockStyle.Right;
-            panel4.Location = new Point(400, 100);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(400, 350);
-            panel4.TabIndex = 3;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(30, 16);
-            label9.Name = "label9";
-            label9.Size = new Size(46, 17);
-            label9.TabIndex = 0;
-            label9.Text = "Result:";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.Location = new Point(88, 16);
-            label10.Name = "label10";
-            label10.Size = new Size(25, 17);
-            label10.TabIndex = 1;
-            label10.Text = "X=";
+            textBox_resFx.Enabled = false;
+            textBox_resFx.Location = new Point(238, 15);
+            textBox_resFx.Name = "textBox_resFx";
+            textBox_resFx.Size = new Size(32, 23);
+            textBox_resFx.TabIndex = 2;
             // 
             // textBox_resX
             // 
@@ -312,13 +283,34 @@
             label11.TabIndex = 1;
             label11.Text = "F(X)=";
             // 
-            // textBox_resFx
+            // label10
             // 
-            textBox_resFx.Enabled = false;
-            textBox_resFx.Location = new Point(238, 15);
-            textBox_resFx.Name = "textBox_resFx";
-            textBox_resFx.Size = new Size(32, 23);
-            textBox_resFx.TabIndex = 2;
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label10.Location = new Point(88, 16);
+            label10.Name = "label10";
+            label10.Size = new Size(25, 17);
+            label10.TabIndex = 1;
+            label10.Text = "X=";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label9.Location = new Point(30, 16);
+            label9.Name = "label9";
+            label9.Size = new Size(46, 17);
+            label9.TabIndex = 0;
+            label9.Text = "Result:";
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(formsPlot1);
+            panel3.Dock = DockStyle.Left;
+            panel3.Location = new Point(0, 100);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(400, 350);
+            panel3.TabIndex = 2;
             // 
             // formsPlot1
             // 
@@ -328,6 +320,15 @@
             formsPlot1.Name = "formsPlot1";
             formsPlot1.Size = new Size(400, 350);
             formsPlot1.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(formsPlot2);
+            panel4.Dock = DockStyle.Right;
+            panel4.Location = new Point(400, 100);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(400, 350);
+            panel4.TabIndex = 3;
             // 
             // formsPlot2
             // 
