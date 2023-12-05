@@ -260,9 +260,9 @@
             // textBox_resFx
             // 
             textBox_resFx.Enabled = false;
-            textBox_resFx.Location = new Point(238, 15);
+            textBox_resFx.Location = new Point(311, 15);
             textBox_resFx.Name = "textBox_resFx";
-            textBox_resFx.Size = new Size(32, 23);
+            textBox_resFx.Size = new Size(132, 23);
             textBox_resFx.TabIndex = 2;
             // 
             // textBox_resX
@@ -270,14 +270,14 @@
             textBox_resX.Enabled = false;
             textBox_resX.Location = new Point(119, 15);
             textBox_resX.Name = "textBox_resX";
-            textBox_resX.Size = new Size(32, 23);
+            textBox_resX.Size = new Size(132, 23);
             textBox_resX.TabIndex = 2;
             // 
             // label11
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(193, 16);
+            label11.Location = new Point(266, 16);
             label11.Name = "label11";
             label11.Size = new Size(39, 17);
             label11.TabIndex = 1;

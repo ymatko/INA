@@ -11,6 +11,7 @@ namespace INA_lab5
         internal double Position { get; set; }
         internal double Speed { get; set; }
         internal double BestOfParticle { get; set; }
-        internal double BestOfNeighbors { get; set; }
+        internal static double BestOfNeighbors { get; set; }
+        internal double Fx { get; set; }
     }
 }
