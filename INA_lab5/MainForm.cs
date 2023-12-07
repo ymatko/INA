@@ -12,7 +12,9 @@ namespace INA_lab5
         private double _c3;
         private static Random rand = new Random();
         private List<Particle> particles = new List<Particle>();
-        List<RunStatistics> runStatisticsList = new List<RunStatistics>();
+        private List<RunStatistics> runStatisticsList = new List<RunStatistics>();
+        private List<Particle>[] generation;
+
 
         public MainForm()
         {
@@ -29,10 +31,12 @@ namespace INA_lab5
             _c3 = Convert.ToDouble(textBox_C3.Text);
             _n = Convert.ToInt32(textBox_N.Text);
             _t = Convert.ToInt32(textBox_T.Text);
+            generation = new List<Particle>[_t];
             runStatisticsList.Clear();
             CreateParticles();
             Calculate();
             Plot(runStatisticsList);
+            PlotGeneration();
             foreach (Particle obj in particles)
             {
                 obj.Fx = Fx(obj.Position);
@@ -40,6 +44,21 @@ namespace INA_lab5
             var best = particles.OrderByDescending(p => p.Fx).FirstOrDefault();
             textBox_resFx.Text = best.Fx.ToString();
             textBox_resX.Text = best.Position.ToString();
+        }
+
+        private void PlotGeneration()
+        {
+            formsPlot2.Plot.Clear();
+
+            for (int i = 0; i < _t; i++)
+            {
+                for (int j = 0; j < _n; j++)
+                {
+                    formsPlot2.Plot.AddPoint(generation[i][j].Position, 0, color: Color.Red);
+                }
+            }
+            formsPlot2.Plot.AxisAuto();
+            formsPlot2.Render();
         }
 
         private void Calculate()
@@ -66,6 +85,7 @@ namespace INA_lab5
                     AvgFx = particles.Average(data => data.Fx)
                 };
                 runStatisticsList.Add(runStatistics);
+                generation[i] = particles;
             }
         }
 
