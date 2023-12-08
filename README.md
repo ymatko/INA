@@ -1,4 +1,4 @@
-# Genetic Algorithm
+# Optimization algorithms
 
 ![](https://img.shields.io/badge/.NET%20-7.0-blue)
 ![](https://img.shields.io/badge/C%23-10-green)
@@ -6,47 +6,77 @@
 ![](https://img.shields.io/badge/Visual%20Studio-2022-orange)
 ![](https://img.shields.io/badge/ScottPlot-blueviolet)
 
-### This is a desktop application that is an implementation of a genetic algorithm aimed at finding the maximum value of a given function in a given range of numbers.
+## Genetic Algorithm
 
-## Key features and characteristics of the project:
+#### This is a desktop application that is an implementation of a genetic algorithm aimed at finding the maximum value of a given function in a given range of numbers.
 
-### 1. Encoding Individuals:
+### Key features and characteristics of the project:
+
+#### 1. Encoding Individuals:
 Individuals are represented as binary sequences, depicting variable values in a genetic code.
 
-### 2. Random Initialization of the Population: 
+#### 2. Random Initialization of the Population: 
 The initial population is created, taking into account parameters such as population size and variable range.
 
-### 3. Evaluation of Individuals in the Population: 
+#### 3. Evaluation of Individuals in the Population: 
 For each individual, the value of the function is calculated, determining its fitness.
 
-### 4. Selection of Individuals: 
+#### 4. Selection of Individuals: 
 Individuals with higher fitness have a greater chance of being selected for reproduction.
 
-### 5. Crossover and Mutation: 
+#### 5. Crossover and Mutation: 
 Selected individuals undergo crossover, and mutation is applied to the offspring to introduce diversity.
 
-### 6. Population Update: 
+#### 6. Population Update: 
 The new generation replaces the previous one.
 
-### 7. Elitism: 
+#### 7. Elitism: 
 If necessary, the best individuals from the previous generation are preserved.
 
-### 8. Results Visualization: 
+#### 8. Results Visualization: 
 Statistics for each generation are displayed, and graphs are generated to analyze the convergence process.
 
-### 9. Testing Different Parameters: 
+#### 9. Testing Different Parameters: 
 The program allows for testing the impact of various genetic algorithm parameters (population size, number of generations, crossover, and mutation probabilities) on the results.
 
 The program also enables testing and selecting optimal algorithm parameters to achieve the best results in the search for the maximum value of the function F(x).
 
 ---
 
-## Gallery
+### Gallery
 
 <img align="center" src="Image/app_1.png"/>
 <img align="center" src="Image/app_2.png"/>
 <img align="center" src="Image/app_3.png"/>
 
+---
+
+## Biggest growth algorithm
+
+### This algorithm focuses on exploring the solution space through random perturbations, preferring solutions with higher objective function values.
+
+---
+
+### Gallery
+
+<img align="center" src="Image/app_4.png"/>
+<img align="center" src="Image/app_5.png"/>
+<img align="center" src="Image/app_6.png"/>
+<img align="center" src="Image/app_7.png"/>
+
+---
+
+## Particle Swarm
+
+### Particle Swarm Optimization (PSO) is a population-based optimization algorithm that was inspired by the social behavior of birds and fish, where individuals in a group coordinate their movements to find the best path. PSO is commonly used to find approximate solutions to optimization and search problems.
+
+---
+
+### Gallery
+
+<img align="center" src="Image/app_8.png"/>
+
+---
 
 ## License
 
